@@ -348,7 +348,7 @@
 						  <label for="saleDetailsTotal">Cash</label>
 						  <select class="form-control" name="saleDetailsCash" id="saleDetailsCash">
 							<option value="Cash Payment">Cash Payment</option>
-							<option value="Online Paymen">Onlne Payment</option>
+							<option value="Online Payment">Onlne Payment</option>
 						  </select>
 						</div>
 					  </div>
