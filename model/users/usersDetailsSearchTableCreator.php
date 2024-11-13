@@ -43,22 +43,6 @@
 	
 	$vendorDetailsSearchStatement->closeCursor();
 	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Action</th>
-							<th>Account ID</th>
-							<th>Position</th>
-							<th>Name</th>
-							<th>Account Type</th>
-							<th>Username</th>
-							<th>Status</th>
-							<th>Mobile</th>
-							<th>Location</th>
-							<th>Total Sales</th>
-							<th>Total Sold</th>
-						</tr>
-					</tfoot>
-				</table>';
+
 	echo $output;
 ?>

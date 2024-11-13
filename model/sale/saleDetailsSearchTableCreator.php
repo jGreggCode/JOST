@@ -66,25 +66,6 @@
 	
 	$saleDetailsSearchStatement->closeCursor();
 	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Sale ID</th>
-							<th>Item Number</th>
-							<th>Customer ID</th>
-							<th>Customer Name</th>
-							<th>Seller ID</th>
-							<th>Item Name</th>
-							<th>Sale Date</th>
-							<th>Discount %</th>
-							<th>Quantity</th>
-							<th>Unit Price</th>
-							<th>Status</th>
-							<th>Total Price</th>
-							<th>Invoice</th>
-						</tr>
-					</tfoot>
-				</table>';
 	echo $output;
 ?>
 

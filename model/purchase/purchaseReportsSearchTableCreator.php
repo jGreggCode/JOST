@@ -47,21 +47,7 @@
 	
 	$purchaseDetailsSearchStatement->closeCursor();
 	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Total</th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</tfoot>
-				</table>';
+
 	echo $output;
 ?>
 

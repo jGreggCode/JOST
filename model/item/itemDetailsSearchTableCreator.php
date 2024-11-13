@@ -40,20 +40,6 @@
 	
 	$itemDetailsSearchStatement->closeCursor();
 	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Product ID</th>
-							<th>Category</th>
-							<th>Item Number</th>
-							<th>Item Name</th>
-							<th>Discount %</th>
-							<th>Stock</th>
-							<th>Unit Price</th>
-							<th>Status</th>
-							<th>Description</th>
-						</tr>
-					</tfoot>
-				</table>';
+
 	echo $output;
 ?>

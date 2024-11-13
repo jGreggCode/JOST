@@ -20,7 +20,7 @@
 	require_once('inc/config/db.php');
 	require_once('inc/header.html');
 ?>
-  <body>
+  <body">
 
 <?php
 // Variable to store the action (login, register, passwordReset)

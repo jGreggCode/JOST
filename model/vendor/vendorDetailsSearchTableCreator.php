@@ -41,21 +41,6 @@
 	
 	$vendorDetailsSearchStatement->closeCursor();
 	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Supplier ID</th>
-							<th>Full Name</th>
-							<th>Email</th>
-							<th>Mobile</th>
-							<th>Phone 2</th>
-							<th>Address</th>
-							<th>Address 2</th>
-							<th>City</th>
-							<th>District</th>
-							<th>Status</th>
-						</tr>
-					</tfoot>
-				</table>';
+
 	echo $output;
 ?>

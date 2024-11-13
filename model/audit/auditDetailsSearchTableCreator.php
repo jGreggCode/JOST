@@ -33,17 +33,6 @@
 	
 	$vendorDetailsSearchStatement->closeCursor();
 	
-	$output .= '</tbody>
-					<tfoot>
-						<tr>
-							<th>Audit ID</th>
-                            <th>Time</th>
-                            <th>User ID</th>
-                            <th>User Type</th>
-                            <th>User Name</th>
-                            <th>Action</th>
-						</tr>
-					</tfoot>
-				</table>';
+	
 	echo $output;
 ?>
