@@ -19,10 +19,10 @@
 						<tr>
 							<th>Purchase ID</th>
 							<th>Item Number</th>
-							<th>Purchase Date</th>
+							<th>Restock Date</th>
 							<th>Item Name</th>
-							<th>Vendor Name</th>
-							<th>Vendor ID</th>
+							<th>Supplier Name</th>
+							<th>Supplier ID</th>
 							<th>Quantity</th>
 							<th>Unit Price</th>
 							<th>Total Price</th>

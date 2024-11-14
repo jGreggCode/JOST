@@ -129,7 +129,7 @@
 
 						// Record to audit
 						$time = date('Y-m-d H:i:s');
-						$action = "Item Sale Recorded (SALES)";
+						$action = "Item Order Recorded (Order)";
 						
 						$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 

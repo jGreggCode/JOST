@@ -47,7 +47,7 @@ session_start();
 			
 			// Check if purchaseID is empty
 			if($purchaseDetailsPurchaseID == ''){ 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Purchase ID.</div>';
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Restock ID.</div>';
 				exit();
 			}
 			
@@ -134,14 +134,14 @@ session_start();
 					
 					// Record to audit
 					$time = date('Y-m-d H:i:s');
-					$action = "Update Purchase (PURCHASE)";
+					$action = "Update Restock (Restock)";
 					
 					$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 
 					$insertAuditStatement = $conn->prepare($insertAuditSql);
 					$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
 					
-					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.</div>';
+					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details added to database and stock values updated.</div>';
 					exit();
 					
 				} else {
@@ -171,7 +171,7 @@ session_start();
 						$updatePurchaseDetailsStatement = $conn->prepare($updatePurchaseDetailsSql);
 						$updatePurchaseDetailsStatement->execute(['purchaseDate' => $purchaseDetailsPurchaseDate, 'unitPrice' => $purchaseDetailsUnitPrice, 'quantity' => $purchaseDetailsQuantity, 'vendorName' => $purchaseDetailsVendorName, 'vendorID' => $vendorID, 'purchaseID' => $purchaseDetailsPurchaseID]);
 						
-						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.</div>';
+						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details added to database and stock values updated.</div>';
 						exit();
 						
 					} else {
@@ -186,7 +186,7 @@ session_start();
 			} else {
 				
 				// PurchaseID does not exist in purchase table, therefore, you can't update it 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details does not exist in DB for the given Purchase ID. Therefore, can\'t update.</div>';
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details does not exist in DB for the given Restock ID. Therefore, can\'t update.</div>';
 				exit();
 				
 			}

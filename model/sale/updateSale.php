@@ -64,7 +64,7 @@
 			
 			// Check if saleID is empty
 			if($saleDetailsSaleID == ''){ 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Sale ID.</div>';
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a Order ID.</div>';
 				exit();
 			}
 			
@@ -120,7 +120,7 @@
 			
 			if($originalSaleQuantityStatement->rowCount() > 0){
 				
-				// Sale details exist in DB. Hence proceed to calculate the stock
+				// Order details exist in DB. Hence proceed to calculate the stock
 				$originalQtyRow = $originalSaleQuantityStatement->fetch(PDO::FETCH_ASSOC);
 				$quantityInOriginalOrder = $originalQtyRow['quantity'];
 				$originalOrderItemNumber = $originalQtyRow['itemNumber'];
@@ -131,7 +131,7 @@
 				// Check if the original itemNumber is the same as the new itemNumber
 				// Record to audit
 				$time = date('Y-m-d H:i:s');
-				$action = "Item Sale Updated (SALES)";
+				$action = "Order Updated (Order)";
 				
 				$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 
@@ -184,7 +184,7 @@
 					$updateSaleDetailsStatement = $conn->prepare($updateSaleDetailsSql);
 					$updateSaleDetailsStatement->execute(['itemNumber' => $saleDetailsItemNumber, 'saleDate' => $saleDetailsSaleDate, 'itemName' => $saleDetailsItemName, 'unitPrice' => $saleDetailsUnitPrice, 'discount' => $saleDetailsDiscount, 'quantity' => $saleDetailsQuantity, 'customerName' => $saleDetailsCustomerName, 'customerID' => $customerID, 'status' => $saleDetailsItemStatus, 'saleID' => $saleDetailsSaleID,]);
 					
-					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Sale details updated.</div>';
+					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Order details updated.</div>';
 					exit();
 					
 				} else {
@@ -214,7 +214,7 @@
 						$updateSaleDetailsStatement = $conn->prepare($updateSaleDetailsSql);
 						$updateSaleDetailsStatement->execute(['itemNumber' => $saleDetailsItemNumber, 'saleDate' => $saleDetailsSaleDate, 'itemName' => $saleDetailsItemName, 'unitPrice' => $saleDetailsUnitPrice, 'discount' => $saleDetailsDiscount, 'quantity' => $saleDetailsQuantity, 'customerName' => $saleDetailsCustomerName, 'customerID' => $customerID, 'status' => $saleDetailsItemStatus, 'saleID' => $saleDetailsSaleID]);
 						
-						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Sale details updated.</div>';
+						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Order details updated.</div>';
 						exit();
 						
 					} else {
@@ -229,7 +229,7 @@
 			} else {
 				
 				// SaleID does not exist in purchase table, therefore, you can't update it 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Sale details does not exist in DB for the given Sale ID. Therefore, can\'t update.</div>';
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Order details does not exist in DB for the given Order ID. Therefore, can\'t update.</div>';
 				exit();
 				
 			}
