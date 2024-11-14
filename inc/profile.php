@@ -111,7 +111,7 @@
                                                 <p class="mb-0">Pending Reseller Approval</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><?php echo $totalDisabledUsersEmployee; ?></p>
+                                                <p class="text-muted mb-0"><?php echo $totalDisabledUsersReseller; ?></p>
                                             </div>
                                         </div>
                                         <hr>
@@ -120,7 +120,7 @@
                                                 <p class="mb-0">Pending Employee Approval</p>
                                             </div>
                                             <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><?php echo $totalDisabledUsersReseller; ?></p>
+                                            <p class="text-muted mb-0"><?php echo $totalDisabledUsersEmployee; ?></p>
                                             </div>
                                         </div>
                                         <?php

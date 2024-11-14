@@ -7,6 +7,7 @@
 	$registerUsername = '';
 	$registerUserType = '';
 	$registerEmail = '';
+	$registerPhoneNo = '';
 	$registerPassword1 = '';
 	$registerPassword2 = '';
 	$hashedPassword = '';
@@ -21,6 +22,7 @@
 		$registerUsername = htmlentities($_POST['registerUsername']);
 		$registerUserType = htmlentities($_POST['registerUserType']);
 		$registerEmail = htmlentities($_POST['registerEmail']);
+		$registerPhoneNo = htmlentities($_POST['registerPhoneNo']);
 		$registerPassword1 = htmlentities($_POST['registerPassword1']);
 		$registerPassword2 = htmlentities($_POST['registerPassword2']);
 		
@@ -69,36 +71,43 @@
 			
 			if($usernameCheckingStatement->rowCount() > 0){
 				// Username already exists. Hence can't create a new user
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Username not available. Please select a different username.</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Username not available. Please select a different username.</div>';
 				exit();
 			} else if ($emailCheckingStatement->rowCount() > 0) {
 				// Email already exists. Hence can't create a new user
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Username not available. Please select a different Email.</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Email not available. Please select a different Email.</div>';
 				exit();
 			} else {
 				// Check if passwords are equal
 				if($registerPassword1 !== $registerPassword2){
-					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Passwords do not match.</div>';
+					echo '<div class="alert alert-danger" style="color: red;">Passwords do not match.</div>';
 					exit();
 				} else {
 					// Start inserting user to DB
 					// Encrypt the password
 					$hashedPassword = md5($registerPassword1);
-					$insertUserSql = 'INSERT INTO user(usertype, fullName, email, username, password) VALUES(:usertype, :fullName, :email, :username, :password)';
+					$insertUserSql = 'INSERT INTO user(usertype, fullName, email, username, password, mobile) VALUES(:usertype, :fullName, :email, :username, :password, :mobile)';
 					$insertUserStatement = $conn->prepare($insertUserSql);
-					$insertUserStatement->execute(['usertype' => $registerUserType, 'fullName' => $registerFullName, 'email' => $registerEmail, 'username' => $registerUsername, 'password' => $hashedPassword]);
+					$insertUserStatement->execute([
+						'usertype' => $registerUserType, 
+						'fullName' => $registerFullName, 
+						'email' => $registerEmail, 
+						'username' => $registerUsername, 
+						'password' => $hashedPassword,
+						'mobile' => $registerPhoneNo
+					]);
 					
 					// Insert To Audit
 					$message = $registerFullName . " has registered under account name " .  "\"" . $registerUsername . "\"";
 					registerAudit($registerUsername, $message);
 
-					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Registration complete.</div>';
+					echo '<div class="alert alert-success" style="color: green;">Registration complete. Check your email</div>';
 					exit();
 				}
 			}
 		} else {
 			// One or more mandatory fields are empty. Therefore, display a the error message
-			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)</div>';
+			echo '<div class="alert alert-danger" style="color: red;">Please enter all fields</div>';
 			exit();
 		}
 	}

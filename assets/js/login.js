@@ -3,6 +3,7 @@ $(document).ready(function(){
 	// Listen to register button
 	$('#register').on('click', function(){
 		register();
+		sendRegisterEmail();
 	});
 	
 	// Listen to reset password button
@@ -23,6 +24,7 @@ function register(){
 	var registerUsername = $('#registerUsername').val();
 	var registerUserType = $('#registerUserType').val();
 	var registerEmail = $('#registerEmail').val();
+	var registerPhoneNo = $('#registerPhoneNo').val();
 	var registerPassword1 = $('#registerPassword1').val();
 	var registerPassword2 = $('#registerPassword2').val();
 
@@ -36,8 +38,30 @@ function register(){
 			registerUsername: registerUsername,
 			registerUserType: registerUserType, 
 			registerEmail: registerEmail, 
+			registerPhoneNo: registerPhoneNo,
 			registerPassword1: registerPassword1,
 			registerPassword2: registerPassword2,
+		},
+		success: function(data) {
+			console.log('AJAX Response:', data); // Log the response
+			$('#registerMessage').html(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
+		}
+	});
+}
+
+function sendRegisterEmail() {
+	var registerUserType = $('#registerUserType').val();
+	var registerEmail = $('#registerEmail').val();
+
+	$.ajax({
+		url: 'send.php',
+		method: 'POST',
+		data: {
+			registerUserType: registerUserType, 
+			registerEmail: registerEmail, 
 		},
 		success: function(data) {
 			console.log('AJAX Response:', data); // Log the response

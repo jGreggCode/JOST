@@ -3,7 +3,7 @@
 function redirectToLoginWithError($errorMessage) {
     // URL encode the message to make it safe for use in a URL parameter
     $encodedMessage = urlencode($errorMessage);
-    header("Location: ../../index.php?error=$encodedMessage");
+    header("Location: ../../login.php?error=$encodedMessage");
     exit();
 }
 
