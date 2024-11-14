@@ -4,16 +4,19 @@
 <!-- Profile -->
 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-reports-tab">
     <div class="card card-outline-secondary my-4">
-        <div class="card-header">Profile</div>
+        <div class="card-header">Profile
+            <button onclick="location.href='model/users/update.php?id=<?php echo $_SESSION['userid']; ?>&ACTION=EDIT'" type="button" data-mdb-button-init data-mdb-ripple-init class="btn float-right btn-sm btn-edit-profile">
+            <i class='bx bx-edit'></i> Edit Profile</button>
+        </div>
             <div class="card-body">
                 <!-- START HERE -->
-                <h5 class="profile-heading">Profile Insights</h5>
+                <h5 class="profile-heading">INSIGHTS <span class="heading-arrow">></span></h5>
                 <div class="insights">
                     <div class="sales">
                         <span class="material-icons-sharp">point_of_sale</span>
                         <div class="middle">
                             <div class="lef">
-                                <h4>Total Sales</h4>
+                                <h5>Your Total Sales</h5>
                                 <h5 class="text-muted">PHP <?php echo $_SESSION['sales']; ?></h5>
                             </div>
                         </div>
@@ -22,7 +25,7 @@
                         <span class="material-icons-sharp">data_thresholding</span>
                         <div class="middle">
                             <div class="lef">
-                                <h4>Total Sold</h4>
+                                <h5>Your Total Sold</h5>
                                 <h5 class="text-muted"><?php echo $_SESSION['sold'] ?? 0; ?> product/s</h5>
                             </div>
                         </div>
@@ -31,7 +34,7 @@
                         <span class="material-icons-sharp">analytics</span>
                         <div class="middle">
                             <div class="lef">
-                                <h4>JASDY Total Sales</h4>
+                                <h5>JOST Total Sales</h5>
                                 <h5 class="text-muted">PHP <?php echo $_SESSION['companysales']; ?></h5>
                             </div>
                         </div>
@@ -42,17 +45,21 @@
                         <div class="card mb-4">
                             <div class="card-body text-center">
                                 <h5 class="my-3">
-                                    <i class='bx bxs-badge-check' style='color:#44d24e;' ></i>
-                                    <?php echo ucwords($_SESSION['fullName']); ?> <small>UID: 0112</small>
+                                <?php echo ucwords($_SESSION['fullName']); ?><span class="material-icons-sharp material-icons-sharp-user" style="font-size: .9rem;">verified</span> <small>UID: 0112</small>
                                 </h5>
                                 <p class="text-muted mb-1"><?php echo strtoupper($_SESSION['usertype']); ?></p>
-                                <p class="text-muted mb-1">
+                                <p class="text-muted mb-1" style="font-size: .7rem;">
                                     Profile Status: <?php echo $_SESSION['status']; ?>
                                 </p>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <button onclick="location.href='model/users/update.php?id=<?php echo $_SESSION['userid']; ?>&ACTION=EDIT'" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">
-                                    <i class='bx bx-edit'></i> Edit Profile</button>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4 pb-5">
+                            <div class="card-body text-left">
+                                <h5 class="my-3">JOST Profile</h5>
+                                <p class="text-muted text-center">Jasdy Office Supplies Trading aim is to provide you with products at reasonable prices, so that you can stock up on necessary supplies without breaking the bank. <hr></p>
+                                <p class="text-muted mb-1">Facebook <span class="heading-arrow">></span> <a href="https://www.facebook.com/jasdyOStrading/"><small>Jasdy Office Supplies Trading </small></a></p>
+                                <p class="text-muted mb-1">Contact <span class="heading-arrow">></span> +63 906 236 4630</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -66,32 +73,7 @@
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0"><?php echo ucwords($_SESSION['fullName']); ?></p>
                                     </div>
-                                </div>	
-                                <?php 
-                                    if ($usertype === 'Admin') {
-                                        ?>
-                                        <hr>
-                                        <div class="row">
-                                            
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Pending Reseller Approval</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><?php echo $totalDisabledUsersEmployee; ?></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Pending Employee Approval</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><?php echo $totalDisabledUsersReseller; ?></p>
-                                            </div>
-                                        </div>
-                                        <?php
-                                    }
-                                ?>
+                                </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -119,6 +101,31 @@
                                         <p class="text-muted mb-0"><?php echo ucwords($_SESSION['location']); ?></p>
                                     </div>
                                 </div>	
+                                <?php 
+                                    if ($usertype === 'Admin') {
+                                        ?>
+                                        <hr style="background-color: var(--color-primary);">
+                                        <div class="row">
+                                            
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Pending Reseller Approval</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0"><?php echo $totalDisabledUsersEmployee; ?></p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Pending Employee Approval</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                            <p class="text-muted mb-0"><?php echo $totalDisabledUsersReseller; ?></p>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>

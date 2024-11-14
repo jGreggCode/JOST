@@ -50,7 +50,7 @@
                                                     <div id="itemDetailsItemNumberSuggestionsDiv" class="customListDivWidth"></div>
                                                 </div>
                                                 <div class="form-group col-md-3">
-                                                    <label for="itemDetailsProductID">Product ID</label>
+                                                    <label for="itemDetailsProductID">Product ID <small>Auto Generated</small></label>
                                                     <input class="form-control invTooltip" type="number" readonly  id="itemDetailsProductID" name="itemDetailsProductID" title="This will be auto-generated when you add a new item">
                                                 </div>
                                                 <div class="form-group col-md-3">
@@ -215,7 +215,7 @@
                                 <form>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="vendorDetailsVendorFullName">Full Name<span class="requiredIcon">*</span></label>
+                                            <label for="vendorDetailsVendorFullName">Supplier Name<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control" id="vendorDetailsVendorFullName" name="vendorDetailsVendorFullName" placeholder="">
                                         </div>
                                         <div class="form-group col-md-2">
@@ -225,7 +225,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="vendorDetailsVendorID">Supplier ID</label>
+                                            <label for="vendorDetailsVendorID">Supplier ID <small>Auto Generated</small></label>
                                             <input type="text" class="form-control invTooltip" id="vendorDetailsVendorID" name="vendorDetailsVendorID" title="This will be auto-generated when you add a new vendor" autocomplete="off">
                                             <div id="vendorDetailsVendorIDSuggestionsDiv" class="customListDivWidth"></div>
                                         </div>
@@ -297,7 +297,7 @@
                                             <input type="text" class="form-control" id="saleDetailsCustomerName" name="saleDetailsCustomerName" readonly>
                                         </div>
                                         <div class="form-group col-md-2">
-                                            <label for="saleDetailsSaleID">Order ID</label>
+                                            <label for="saleDetailsSaleID">Order ID <small>Auto Generated</small></label>
                                             <input type="text" class="form-control invTooltip" id="saleDetailsSaleID" name="saleDetailsSaleID" title="This will be auto-generated when you add a new record" autocomplete="off">
                                             <div id="saleDetailsSaleIDSuggestionsDiv" class="customListDivWidth"></div>
                                         </div>

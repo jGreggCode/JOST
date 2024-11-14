@@ -164,6 +164,11 @@ h5.profile-heading {
   opacity: .8;
 }
 
+.btn-edit-profile {
+  font-size: .8rem;
+  background-color: var(--color-primary);
+}
+
 .btn-success {
   background: rgb(73, 220, 73);
 }
@@ -178,6 +183,10 @@ h5.profile-heading {
 
 .btn-warning {
   background: rgb(230, 154, 60);
+}
+
+.heading-arrow {
+  color: var(--color-info-dark);
 }
 
 .form-control {
@@ -210,10 +219,12 @@ h5.profile-heading {
   border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
 }
 
+/* TABLE  */
+
 table.table {
   font-family: 'Poppins';
   width: 100%;
-  text-align: left;
+  text-align: center;
   border-collapse: collapse;
   border: none;
 }
@@ -302,10 +313,10 @@ table.table tfoot .links a{
   justify-content: space-between;
 }
 
-.insights h4 {
+.insights h5 {
   color: black;
   margin: 1rem 0 0.6rem;
-  font: 1rem;
+  font: .9rem;
 }
 
 .insights .progress {
@@ -364,4 +375,21 @@ table.table tfoot .links a{
 
 .chosen-container-single .chosen-single {
   border-radius: var(--border-radius-2) !important;
+}
+
+.material-icons-sharp-user {
+  color: var(--color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .insights {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .nav {
+    font-size: .8rem;
+  }
 }

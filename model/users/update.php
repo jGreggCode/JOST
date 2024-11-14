@@ -166,7 +166,7 @@
                 
                 <div class="col">
                     <label class="form-label">Email</label>
-                    <input placeholder="Email" type="text" class="form-control" name="userDetailsUserEmail" id="userDetailsUserEmail" value="<?php echo $row['email']; ?>">
+                    <input placeholder="Email" type="email" class="form-control" name="userDetailsUserEmail" id="userDetailsUserEmail" value="<?php echo $row['email']; ?>">
                 </div>
 
                 <?php showPosition($row); ?>
@@ -174,8 +174,8 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <label class="form-label">Mobile</label>
-                    <input placeholder="Mobile" type="text" class="form-control" name="userDetailsUserMobile" value="<?php echo $row['mobile']; ?>">
+                    <label class="form-label">Mobile <small style="font-weight: 500;">(Format: 09123456789)</small></label>
+                    <input placeholder="Mobile" type="tel" pattern="[0-9]{11}" class="form-control" name="userDetailsUserMobile" value="<?php echo $row['mobile']; ?>">
                 </div>
 
                 <div class="col">
