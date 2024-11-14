@@ -35,7 +35,7 @@
 				// Check if vendorID field is empty. If so, display an error message
 				// We have to specifically tell this to user because the (*) mark is not added to that field
 				if(empty($vendorDetailsVendorID)){
-					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Vendor ID to update that vendor. You can find the Vendor ID using the Search tab</div>';
+					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Supplier ID to update that Supplier. You can find the Supplier ID using the Search tab</div>';
 					exit();
 				}
 				
@@ -85,7 +85,7 @@
 					
 					// Create Audit
 					$time = date('Y-m-d H:i:s');
-					$action = "Vendor Info Updated (Vendor)";
+					$action = "Supplier Info Updated (Supplier)";
 					$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 			
 					$insertAuditStatement = $conn->prepare($insertAuditSql);

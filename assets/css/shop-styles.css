@@ -164,6 +164,10 @@ h5.profile-heading {
   opacity: .8;
 }
 
+.btn-report {
+  background-color: var(--color-warning) !important;
+}
+
 .btn-edit-profile {
   font-size: .8rem;
   background-color: var(--color-primary);

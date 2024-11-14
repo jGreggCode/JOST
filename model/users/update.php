@@ -5,12 +5,6 @@
     require_once('../../inc/errorhandling.php');
     $id = $_GET["id"];
 
-    $idSql = 'SELECT * FROM user where userID = :id LIMIT 1';
-    $idSqlStatement = $conn->prepare($idSql);
-    $idSqlStatement->execute(['id' => $id]);
-
-    $found = $idSqlStatement->fetch(PDO::FETCH_ASSOC);
-
     if (isset($_POST["submitUpdate"])) {
         $fullName = htmlentities($_POST['userDetailsUserFullName']);
         $username = htmlentities($_POST['userDetailsUserUsername']);
@@ -25,11 +19,19 @@
             $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
             $updateVendorDetailsStatement->execute(['fullName' => $fullName, 'usertype' => $position, 'username' => $username, 'email' => $email, 'status' => $status, 'mobile' => $mobile, 'location' => $location, 'userID' => $id]);
             
-            $_SESSION['usertype'] = $position;
-            if ($status === "Disabled") {
-                header('Location: ../../index.php');
+            if ($id === $_SESSION['userid']) {
+                $_SESSION['usertype'] = $position;
+            }
+            
+            if ($status === "Disabled" && $id === $_SESSION['userid']) {
+                unset($_SESSION['loggedIn']);
+                unset($_SESSION['fullName']);
+                unset($_SESSION['usertype']);
+                session_destroy();
+                header('Location: ../../dashboard.php');
                 exit();
             }
+
         } else if ($_GET['ACTION'] === 'EDIT') {
             // Construct the UPDATE query
             $updateVendorDetailsSql = 'UPDATE user SET fullName = :fullName, username = :username, email = :email, mobile = :mobile, location = :location  WHERE userID = :userID';
@@ -52,22 +54,28 @@
         update("Details Updated Successfully!");
         exit();
     } else if (isset($_POST["submitDelete"])) {
-        if ($_SESSION['userid'] == $id) {
-            update("You cannot delete yourself!");
-            exit();
-        }
 
-        if ($found <= 0) {
+        $idSql = 'SELECT * FROM user where userID = :id LIMIT 1';
+        $idSqlStatement = $conn->prepare($idSql);
+        $idSqlStatement->execute(['id' => $id]);
+
+        if ($idSqlStatement->rowCount() > 0){
+            $found = $idSqlStatement->fetch(PDO::FETCH_ASSOC);
+
+            if ($_SESSION['userid'] == $id) {
+                update("You cannot delete yourself!");
+                exit();
+            }
+            // Construct the UPDATE query
+            $updateVendorDetailsSql = 'DELETE FROM user WHERE userID = :userID';
+            $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
+            $updateVendorDetailsStatement->execute(['userID' => $id]);
+
+            update("User Deleted Successfully!");
+        } else {
             update("No User Selected!");
             exit();
         }
-        // Construct the UPDATE query
-        $updateVendorDetailsSql = 'DELETE FROM user WHERE userID = :userID';
-        $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
-        $updateVendorDetailsStatement->execute(['userID' => $id]);
-
-        update("User Deleted Successfully!");
-        exit();
     }
 
     function showStatus($row) {
@@ -242,7 +250,7 @@
             <div class="row">
                 <div class="col mt-2">
                     <label class="form-label">Mobile <small style="font-weight: 500;">(Format: 09123456789)</small></label>
-                    <input placeholder="Mobile" type="tel" pattern="[0-9]{11}" class="form-control" name="userDetailsUserMobile" value="<?php echo $row['mobile'] ?? ""; ?>">
+                    <input placeholder="Mobile" type="text" class="form-control" name="userDetailsUserMobile" value="<?php echo $row['mobile'] ?? ""; ?>">
                 </div>
 
                 <div class="col mt-2">
@@ -254,7 +262,7 @@
 
             <button type="submit" class="btn btn-success" name="submitUpdate">Update</button>
             <?php echo ($_GET['ACTION'] !== 'EDIT') ? '<button type="submit" class="btn btn-danger" name="submitDelete">Delete</button>' : ''; ?>
-            <a href="../../index.php" class="btn btn-light">Cancel</a>
+            <a href="../../dashboard.php" class="btn btn-light">Cancel</a>
         </form>
         
     </div>

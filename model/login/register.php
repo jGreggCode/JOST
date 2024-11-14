@@ -1,6 +1,7 @@
 <?php
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	$registerFullName = '';
 	$registerUsername = '';
@@ -87,6 +88,9 @@
 					$insertUserStatement = $conn->prepare($insertUserSql);
 					$insertUserStatement->execute(['usertype' => $registerUserType, 'fullName' => $registerFullName, 'email' => $registerEmail, 'username' => $registerUsername, 'password' => $hashedPassword]);
 					
+					// Insert To Audit
+					$message = $registerFullName . " has registered under account name " .  "\"" . $registerUsername . "\"";
+					registerAudit($registerUsername, $message);
 
 					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Registration complete.</div>';
 					exit();

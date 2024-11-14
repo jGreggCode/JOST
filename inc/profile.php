@@ -126,11 +126,18 @@
                                         <?php
                                     }
                                 ?>
-                                <div class="row">
-                                    <div class="col-sm-6 mt-2">
-                                        <p class="text-muted mb-0" style="font-size: .8rem;">| Go to <b>Search/Track</b> <span class="heading-arrow">></span> <b>Accounts</b> to approve accounts</p>
-                                    </div>  
-                                </div>
+
+                                <?php
+                                    if ($usertype === 'Admin') {
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-sm-6 mt-2">
+                                                <p class="text-muted mb-0" style="font-size: .8rem;">| Go to <b>Search/Track</b> <span class="heading-arrow">></span> <b>Accounts</b> to approve accounts</p>
+                                            </div>  
+                                        </div>
+                                        <?php
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>

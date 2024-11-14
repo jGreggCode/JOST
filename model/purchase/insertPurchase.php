@@ -94,14 +94,14 @@
 
 				// Record to audit
 				$time = date('Y-m-d H:i:s');
-				$action = "Added Purchase (PURCHASE)";
+				$action = "Added Stock (Restock)";
 				
 				$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 
 				$insertAuditStatement = $conn->prepare($insertAuditSql);
 				$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
 				
-				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Purchase details added to database and stock values updated.</div>';
+				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details added to database and stock values updated.</div>';
 				exit();
 				
 			} else {

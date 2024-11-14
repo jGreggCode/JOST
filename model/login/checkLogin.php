@@ -68,8 +68,9 @@
 				// Store the total_sales value in session
 				$_SESSION['companysales'] = $result['total_sales'] ?? 0;
 				
+				/*
 				if ($_SESSION['usertype'] === 'Admin') {
-					header('Location: ../../admin.php');
+					header('Location: ../../dashboard.php');
 					exit();
 				} elseif ($_SESSION['usertype'] === 'Reseller') {
 					header('Location: ../../reseller.php');
@@ -78,9 +79,8 @@
 					header('Location: ../../employee.php');
 					exit(); // Fallback for other user types
 				}
-				
-				//echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Login success! Redirecting you to home page...</div>';
-				redirectToLoginWithError("Login Success");
+				*/
+				header('Location: ../../dashboard.php');
 				exit();
 			} else {
 				// Redirect to login with error message in query parameter

@@ -504,7 +504,7 @@ function searchTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 // Function to create reports datatables for customer, item, purchase, sale
 function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
-	var dateGenerated = new Date().toLocaleDateString();
+	let dateGenerated = new Date().toLocaleDateString();
 	var tableID = '#' + table;
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
 		// Initiate the Datatable plugin once the table is added to the DOM
@@ -514,7 +514,6 @@ function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 			//dom: 'Bfrtip',
 			buttons: [
 				'copy',
-				'csv', 'excel',
 				{extend: 'pdf', orientation: 'landscape', pageSize: 'LEGAL', title: 'Report', customize: function(doc) {
 					doc['header'] = (function() {
 						return {
@@ -528,7 +527,10 @@ function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 						};
 					});
 				}},
-				{extend: 'print', footer: true, title: 'Report'},
+				{extend: 'print', footer: true, title: 'Report', customize: function(win) {
+					$(win.document.body)
+						.prepend(`<div style="text-align:left; margin-bottom:10px;">Date generated: ${dateGenerated}</div>`);
+				}}
 			]
 		});
 	});
@@ -540,7 +542,7 @@ function reportsTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
 	var tableID = '#' + table;
-	var dateGenerated = new Date().toLocaleDateString();
+	let dateGenerated = new Date().toLocaleDateString();
 
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
 		// Initiate the Datatable plugin once the table is added to the DOM
@@ -548,8 +550,6 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 			dom: 'lBfrtip',
 			buttons: [
 				'copy',
-				{extend: 'csv', footer: true, title: 'Purchase Report'},
-				{extend: 'excel', footer: true, title: 'Purchase Report'},
 				{extend: 'pdf', footer: true, orientation: 'landscape', pageSize: 'LEGAL', title: 'Purchase Report', customize: function(doc) {
 					doc['header'] = (function() {
 						return {
@@ -563,7 +563,10 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 						};
 					});
 				}},
-				{extend: 'print', footer: true, title: 'Purchase Report'},
+				{extend: 'print', footer: true, title: 'Purchase Report', customize: function(win) {
+					$(win.document.body)
+						.prepend(`<div style="text-align:left; margin-bottom:10px;">Date generated: ${dateGenerated}</div>`);
+				}}
 			],
 			"footerCallback": function ( row, data, start, end, display ) {
 				var api = this.api(), data;
@@ -638,15 +641,13 @@ function reportsPurchaseTableCreator(tableContainerDiv, tableCreatorFileUrl, tab
 function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 	var tableContainerDivID = '#' + tableContainerDiv;
 	var tableID = '#' + table;
-	var dateGenerated = new Date().toLocaleDateString();
+	let dateGenerated = new Date().toLocaleDateString();
 	$(tableContainerDivID).load(tableCreatorFileUrl, function(){
 		// Initiate the Datatable plugin once the table is added to the DOM
 		$(tableID).DataTable({
 			dom: 'lBfrtip',
 			buttons: [
 				'copy',
-				{extend: 'csv', footer: true, title: 'Sale Report'},
-				{extend: 'excel', footer: true, title: 'Sale Report'},
 				{extend: 'pdf', footer: true, orientation: 'landscape', pageSize: 'LEGAL', title: 'Sale Report', customize: function(doc) {
 					doc['header'] = (function() {
 						return {
@@ -660,7 +661,10 @@ function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 						};
 					});
 				}},
-				{extend: 'print', footer: true, title: 'Sale Report'},
+				{extend: 'print', footer: true, title: 'Report', customize: function(win) {
+					$(win.document.body)
+						.prepend(`<div style="text-align:left; margin-bottom:10px;">Date generated: ${dateGenerated}</div>`);
+				}}
 			],
 			"footerCallback": function ( row, data, start, end, display ) {
 				var api = this.api(), data;
@@ -735,8 +739,7 @@ function reportsSaleTableCreator(tableContainerDiv, tableCreatorFileUrl, table){
 function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV, tableID){
 	var startDate = $('#' + startDate).val();
 	var endDate = $('#' + endDate).val();
-	
-	var dateGenerated = new Date().toLocaleDateString();
+	let dateGenerated = new Date().toLocaleDateString();
 
 	$.ajax({
 		url: scriptPath,
@@ -755,8 +758,6 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 				dom: 'lBfrtip',
 				buttons: [
 					'copy',
-					{extend: 'csv', footer: true, title: 'Sale Report'},
-					{extend: 'excel', footer: true, title: 'Sale Report'},
 					{extend: 'pdf', footer: true, orientation: 'landscape', pageSize: 'LEGAL', title: 'Sale Report', customize: function(doc) {
 						doc['header'] = (function() {
 							return {
@@ -770,7 +771,10 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 							};
 						});
 					}},
-					{extend: 'print', footer: true, title: 'Sale Report'},
+					{extend: 'print', footer: true, title: 'Sale Report', customize: function(win) {
+						$(win.document.body)
+							.prepend(`<div style="text-align:left; margin-bottom:10px;">Date generated: ${dateGenerated}</div>`);
+					}}
 				],
 				"footerCallback": function ( row, data, start, end, display ) {
 					var api = this.api(), data;
@@ -846,8 +850,8 @@ function filteredSaleReportTableCreator(startDate, endDate, scriptPath, tableDIV
 function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tableDIV, tableID){
 	var startDate = $('#' + startDate).val();
 	var endDate = $('#' + endDate).val();
-
-	var dateGenerated = new Date().toLocaleDateString();
+	let dateGenerated = new Date().toLocaleDateString();
+	
 	$.ajax({
 		url: scriptPath,
 		method: 'POST',
@@ -865,8 +869,6 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 				dom: 'lBfrtip',
 				buttons: [
 					'copy',
-					{extend: 'csv', footer: true, title: 'Purchase Report'},
-					{extend: 'excel', footer: true, title: 'Purchase Report'},
 					{extend: 'pdf', footer: true, orientation: 'landscape', pageSize: 'LEGAL', title: 'Purchase Report', customize: function(doc) {
 						doc['header'] = (function() {
 							return {
@@ -880,7 +882,10 @@ function filteredPurchaseReportTableCreator(startDate, endDate, scriptPath, tabl
 							};
 						});
 					}},
-					{extend: 'print', footer: true, title: 'Purchase Report'}
+					{extend: 'print', footer: true, title: 'Purchase Report', customize: function(win) {
+						$(win.document.body)
+							.prepend(`<div style="text-align:left; margin-bottom:10px;">Date generated: ${dateGenerated}</div>`);
+					}}
 				],
 				"footerCallback": function ( row, data, start, end, display ) {
 					var api = this.api(), data;
