@@ -1,7 +1,7 @@
 	<!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-      <img src="data/item_images/logo.png" width="100px" height="32px" style="margin-right: 10px;" alt="was">
+      <img src="data/item_images/logo.png" width="100px" height="32px" style="margin-right: 10px;">
         <a class="navbar-brand" href="index.php">WRAP <b>IT</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

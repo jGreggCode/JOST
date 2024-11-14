@@ -32,18 +32,18 @@ session_start();
 				$insertAuditStatement = $conn->prepare($insertAuditSql);
 				$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
 
-				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Vendor deleted.</div>';
+				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Supplier deleted.</div>';
 				exit();
 				
 			} else {
 				// Vendor does not exist, therefore, tell the user that he can't delete that vendor 
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Vendor does not exist in DB. Therefore, can\'t delete.</div>';
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Supplier does not exist in DB. Therefore, can\'t delete.</div>';
 				exit();
 			}
 			
 		} else {
 			// vendorDI is empty. Therefore, display the error message
-			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Vendor ID</div>';
+			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Supplier ID</div>';
 			exit();
 		}
 	}

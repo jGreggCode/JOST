@@ -91,11 +91,11 @@
 					$insertAuditStatement = $conn->prepare($insertAuditSql);
 					$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
 
-					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Vendor details updated.</div>';
+					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Supplier details updated.</div>';
 					exit();
 				} else {
 					// vendorID is not in DB. Therefore, stop the update and quit
-					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Vendor ID does not exist in DB. Therefore, update not possible.</div>';
+					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Supplier ID does not exist in DB. Therefore, update not possible.</div>';
 					exit();
 				}
 				
@@ -106,7 +106,7 @@
 			}
 		} else {
 			// vendorID is not given by user. Hence, can't update
-			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Vendor ID to update that vendor. You can find the Vendor ID using the Search tab</div>';
+			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter the Supplier ID to update that Supplier. You can find the Supplier ID using the Search tab</div>';
 			exit();
 		}
 	}

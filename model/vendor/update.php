@@ -13,7 +13,7 @@ session_start();
         $updateVendorDetailsStatement->execute(['email' => $vendorDetailsVendorEmail, 'vendorID' => $id]);
 
         $time = date('Y-m-d H:i:s');
-        $action = "Vendor Info Updated (Vendor)";
+        $action = "Supplier Info Updated (Supplier)";
         $insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 
         $insertAuditStatement = $conn->prepare($insertAuditSql);

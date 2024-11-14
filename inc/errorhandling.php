@@ -9,8 +9,16 @@ function redirectToLoginWithError($errorMessage) {
 
 function update($errorMessage) {
     // URL encode the message to make it safe for use in a URL parameter
+    // Detect the protocol (HTTP or HTTPS)
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    // Get the current URL
+    $currentUrl = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+    // Append the new parameter
+    $newUrl = $currentUrl . "&message=" . $errorMessage;
     $encodedMessage = urlencode($errorMessage);
-    header("Location: update.php?message=$encodedMessage");
+    header("Location: $newUrl");
     exit();
 }
 

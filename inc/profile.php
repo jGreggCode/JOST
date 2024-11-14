@@ -80,7 +80,7 @@
                                         <p class="mb-0">Email</p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><?php echo ucwords($_SESSION['email']); ?></p>
+                                        <p class="text-muted mb-0"><?php echo $_SESSION['email']; ?></p>
                                     </div>
                                 </div>	
                                 <hr>

@@ -1,3 +1,4 @@
+
 // File that creates the purchase details search table
 purchaseDetailsSearchTableCreatorFile = 'model/purchase/purchaseDetailsSearchTableCreator.php';
 

@@ -10,7 +10,7 @@
 				<thead>
 					<tr>
 						<th>Supplier ID</th>
-						<th>Full Name</th>
+						<th>Supplier Name</th>
 						<th>Email</th>
 						<th>Mobile</th>
 						<th>Phone 2</th>
