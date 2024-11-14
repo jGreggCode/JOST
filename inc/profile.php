@@ -49,7 +49,7 @@
                                 </h5>
                                 <p class="text-muted mb-1"><?php echo strtoupper($_SESSION['usertype']); ?></p>
                                 <p class="text-muted mb-1" style="font-size: .7rem;">
-                                    Profile Status: <?php echo $_SESSION['status']; ?>
+                                    Account Status: <?php echo $_SESSION['status']; ?>
                                 </p>
                             </div>
                         </div>
@@ -126,6 +126,11 @@
                                         <?php
                                     }
                                 ?>
+                                <div class="row">
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="text-muted mb-0" style="font-size: .8rem;">| Go to <b>Search/Track</b> <span class="heading-arrow">></span> <b>Accounts</b> to approve accounts</p>
+                                    </div>  
+                                </div>
                             </div>
                         </div>
                     </div>

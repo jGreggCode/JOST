@@ -2,6 +2,7 @@
     session_start();
     require_once('../../inc/config/constants.php');
     require_once('../../inc/config/db.php');
+    require_once('../../inc/errorhandling.php');
     $id = $_GET["id"];
 
     if (isset($_POST["submitUpdate"])) {
@@ -42,7 +43,7 @@
         $insertAuditStatement = $conn->prepare($insertAuditSql);
         $insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
     
-        header('Location: ../../index.php');
+        update("Details Updated Successfully!");
         exit();
     } else if (isset($_POST["submitDelete"])) {
         if ($_SESSION['userid'] == $id) {
@@ -149,6 +150,13 @@
 
     <div class="container d-flex justify-content-center">
         <form action="" method="post" style="width:50vw; min-width:300px;">
+            <div id="loginMessage"></div>
+			<?php if (isset($_GET['message'])): ?>
+				<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<?php echo htmlspecialchars($_GET['message']); ?>
+				</div>
+			<?php endif; ?>
             <div class="row">
                 <div class="col">
                     <label class="form-label">Full Name</label>

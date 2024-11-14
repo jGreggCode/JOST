@@ -7,6 +7,13 @@ function redirectToLoginWithError($errorMessage) {
     exit();
 }
 
+function update($errorMessage) {
+    // URL encode the message to make it safe for use in a URL parameter
+    $encodedMessage = urlencode($errorMessage);
+    header("Location: update.php?message=$encodedMessage");
+    exit();
+}
+
 function category($category) {
     // URL encode the message to make it safe for use in a URL parameter
     $encodedMessage = urlencode($category);
