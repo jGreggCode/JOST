@@ -3,16 +3,30 @@
     require_once('config/db.php');
     $token = $_GET['token'];
 
-    $vendorDetailsSearchSql = 'SELECT * FROM user where reset_token = :reset_token LIMIT 1';
-    $vendorDetailsSearchStatement = $conn->prepare($vendorDetailsSearchSql);
-    $vendorDetailsSearchStatement->execute(['reset_token' => $token]);
+    $getUserSQL = 'SELECT * FROM user where reset_token = :reset_token LIMIT 1';
+    $getUserStatement = $conn->prepare($getUserSQL);
+    $getUserStatement->execute(['reset_token' => $token]);
 
-    $row = $vendorDetailsSearchStatement->fetch(PDO::FETCH_ASSOC);
+    $row = $getUserStatement->fetch(PDO::FETCH_ASSOC);
 
     if ($row <= 0) {
         $userID = $row['userID'] ?? 'No user';
     } else {
         $userID = $row['userID'];
+    }
+
+    $checkTokenExpireSQL = "SELECT * FROM user WHERE reset_token = :reset_token AND reset_expires > NOW()";
+    $checkTokenExpireStatement = $conn->prepare($checkTokenExpireSQL);
+    $checkTokenExpireStatement->execute([
+        'reset_token' => $token
+    ]);
+
+    // Check if there is a valid token
+    if ($checkTokenExpireStatement->rowCount() <= 0) {
+        // Token is invalid or expired
+        // Redirect to a custom "Token Expired" page
+        header("Location: 404.html");
+        exit();
     }
 
 ?>
@@ -56,9 +70,6 @@
     </nav>
     <br>
     <div class="container">
-        <div style="position: fixed;bottom: 0;right: 0; margin: 1rem;">
-            <a href="../../dashboard.php" class="btn btn-theme"><i class="fa-solid fa-chevron-left"></i> Go Back</a>
-        </div>
         <div class="text-center mb-4">
             <h3>Change Password</h3>
             <p class="text-muted">Change password for <?php echo ucwords($row['fullName'] ?? "") . "<small>" . " (ID: " . "<span id='userID'>"  . $userID . "</span>" . ")" . "</small>"; ?></p>

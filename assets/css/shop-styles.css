@@ -151,6 +151,10 @@ h5.profile-heading {
 	color: #2FA4E7;
 }
 
+.alert {
+  font-weight: 500;
+}
+
 .btn {
   background: rgba(247, 247, 247, 0.729);
   transition: all 500ms ease;
@@ -160,13 +164,17 @@ h5.profile-heading {
   border-radius: 2rem;
 }
 
+.btn:hover {
+  opacity: .8;
+}
+
 .btn-theme {
   background-color: var(--color-dark);
   color: white;
 }
 
-.btn:hover {
-  opacity: .8;
+.btn-theme:hover {
+  background-color: var(--color-info-dark);
 }
 
 .btn-report {

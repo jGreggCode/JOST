@@ -20,8 +20,12 @@ function changePass() {
     var userDetailsUserPassword1 = $('#userDetailsUserOldPass').val();
     var userDetailsUserPassword2 = $('#userDetailsUserNewPass').val();
 
+	console.log(userDetailsUserPassword1);
+	console.log(userDetailsUserPassword2);
+	console.log(userDetailsUserID);
+
 	$.ajax({
-		url: '../../send.php',
+		url: '../../model/login/resetPassword.php',
 		method: 'POST',
 		data: {
 			userDetailsUserID: userDetailsUserID, 

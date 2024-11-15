@@ -44,10 +44,25 @@ function changePass() {
 		},
 		success: function(data) {
 			console.log('AJAX Response:', data); // Log the response
-			$('#changePass').html(data).fadeIn();
-			setTimeout(function() {
-                $('#changePass').fadeOut();
-            }, 3000);
+			// Check for a success message from the server
+            if (data.includes("Password reset complete")) {
+                // Replace form with a success message
+                $('form').html(`
+                    <div class="alert alert-success">
+                        Password Changed Successfully! You can now Sign In using your new password.
+                    </div>
+					<br>
+					<div class="text-center">
+						<a style="padding: .5rem 2rem; text-transform: uppercase" href="../index.php" class="btn btn-theme">Sign In</a>
+					</div>
+                `);
+            } else {
+                // Display error messages
+                $('#changePass').html(data).fadeIn();
+                setTimeout(function() {
+                    $('#changePass').fadeOut();
+                }, 2000);
+            }
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
@@ -165,6 +180,9 @@ function forgotPass(){
 		},
 		success: function(data){
 			$('#loginMessage').html(data).fadeIn();
+			setTimeout(function() {
+                $('#loginMessage').fadeOut();
+            }, 3000);
 		}
 	});
 }

@@ -242,7 +242,7 @@
         </div>
         <div class="text-center mb-4">
             <h3>Edit User Details</h3>
-            <p class="text-muted">Update Info for <?php echo ucwords($row['fullName'] ?? "") . "<small>" . " (ID: " . "<span id='userID'>" . $userID . "<span>" . ")" . "</small>"; ?></p>
+            <p class="text-muted">Update Info for <?php echo ucwords($row['fullName'] ?? "") . "<small>" . " (ID: " . "<span id='userID'>" . $userID . "</span>" . ")" . "</small>"; ?></p>
         </div>
 
         <div class="container d-flex justify-content-center">

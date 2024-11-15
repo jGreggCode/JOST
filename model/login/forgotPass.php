@@ -48,7 +48,7 @@
                 $emailRecipient = $row['email'];
 
                 $token = bin2hex(random_bytes(32));
-                $expires = date("Y-m-d H:i:s", strtotime("+30 minutes"));
+                $expires = date("Y-m-d H:i:s", strtotime("+5 minutes"));
 
                 $updateTokenSql = "UPDATE user SET reset_token = :reset_token, reset_expires = :reset_expires WHERE email = :email";
                 $updateTokenStatement = $conn->prepare($updateTokenSql);
@@ -60,10 +60,9 @@
 
                 
                 $resetLink = $baseURL . "/inc/changepass.php?token=" . $token;
-
+				echo '<div class="alert alert-success" >Password reset link has been sent to your email <b>' . $emailRecipient . '</b></div>';
                 forgotPassword($resetLink, $emailRecipient);
                 
-				echo '<div class="alert alert-danger" >User Found</div>';
 				exit();
 			} else {
 				// Redirect to login with error message in query parameter

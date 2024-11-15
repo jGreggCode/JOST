@@ -28,11 +28,11 @@
             exit();
         } else {
 
-            $updateVendorDetailsSql = 'UPDATE user SET status = :status WHERE userID = :userID';
+            $updateVendorDetailsSql = 'UPDATE user SET status = :status WHERE email = :email';
             $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
             $updateVendorDetailsStatement->execute([
                 'status' => 'Active', 
-                'userID' => $deactUserID
+                'email' => $activatedEmail
             ]);
 
             accountActivatedEmail($activatedAccountType, $activatedEmail);
@@ -435,6 +435,10 @@
                         border-radius: 5px;
                         margin-top: 20px;
                     }
+                    .code a {
+                        text-decoration: none;
+                        color: #ffffff;
+                    }
                     .note {
                         text-align: center;
                     }
@@ -448,17 +452,20 @@
             </head>
             <body>
                 <div class='email-container'>
-                <div class='header'>
-                    <img src='cid:logo_img' alt='System Logo'>
-                    <h2>Forgot your password?</h2>
-                </div>
-                <div class='content'>
-                    <p>Click the button below to complete your change password request:</p>
-                    <div class='code'><a href='{$link}'>Change Password</a></div>
-                    <p>This link will expire in 30 minutes.</p>
-                </div>
-                <div class='footer'>
-                    <p>If you did not request this link, please ignore this email or contact our support team.</p>
+                    <div class='header'>
+                        <img src='cid:logo_img' alt='System Logo'>
+                        <h2>Password Reset Request</h2>
+                    </div>
+                    <div class='content'>
+                        <p>You requested to reset your password. Click the button below to proceed:</p>
+                        <div class='code'>
+                            <a href='{$link}'>Reset Password</a>
+                        </div>
+                        <p>Please note: This link will expire in 5 minutes.</p>
+                    </div>
+                    <div class='footer'>
+                        <p>If you did not make this request, you can safely ignore this email. If you have concerns, please contact our support team immediately.</p>
+                    </div>
                 </div>
             </div>
             </body>
