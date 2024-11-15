@@ -19,13 +19,13 @@
 			
 			// Check if username is empty
 			if($loginUsername == ''){
-				redirectToLoginWithError("Enter a username!");
+				echo '<div class="alert alert-danger" style="color: red;">Enter username</div>';
 				exit();
 			}
 			
 			// Check if password is empty
 			if($loginPassword == ''){
-				redirectToLoginWithError("Enter a password!");
+				echo '<div class="alert alert-danger" style="color: red;">Enter password</div>';
 				exit();
 			}
 			
@@ -43,7 +43,7 @@
 				$row = $checkUserStatement->fetch(PDO::FETCH_ASSOC);
 
 				if ($row['status'] === 'Disabled') {
-					redirectToLoginWithError("Wait for the admin to activate your account");
+					echo '<div class="alert alert-danger" style="color: red;">Your account is not yet activated.</div>';
 					exit();
 				}
 
@@ -80,14 +80,15 @@
 					exit(); // Fallback for other user types
 				}
 				*/
-				header('Location: ../../dashboard.php');
+				//header('Location: ../../dashboard.php');
+				echo '<div class="alert alert-danger" >Login Success</div>';
 				exit();
 			} else {
 				// Redirect to login with error message in query parameter
-				redirectToLoginWithError("User not found");
+				echo '<div class="alert alert-danger" style="color: red;">User not found</div>';
 			}
 		} else {
-			redirectToLoginWithError("Enter username and password");
+			echo '<div class="alert alert-danger" style="color: red;">Enter username and password</div>';
 			exit();
 		}
 	}

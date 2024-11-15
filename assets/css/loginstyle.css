@@ -190,6 +190,7 @@ form.sign-in-form {
 .btn:hover {
   background-color: var(--color-primary--hover);
 }
+
 .panels-container {
   position: absolute;
   height: 100%;

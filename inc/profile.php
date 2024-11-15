@@ -44,8 +44,8 @@
                     <div class="col-lg-4">
                         <div class="card mb-4">
                             <div class="card-body text-center">
-                                <h5 class="my-3">
-                                <?php echo ucwords($_SESSION['fullName']); ?><span class="material-icons-sharp material-icons-sharp-user" style="font-size: .9rem;">verified</span> <small>UID: 0112</small>
+                                <h5 class="my-3" style="max-width: 400px; margin: 0 auto;">
+                                <?php echo ucwords($_SESSION['fullName']); ?><span class="material-icons-sharp material-icons-sharp-user" style="font-size: .9rem;">verified</span> <small><?php echo '(UID: ' . $_SESSION['userid'] . ')';?></small>
                                 </h5>
                                 <p class="text-muted mb-1"><?php echo strtoupper($_SESSION['usertype']); ?></p>
                                 <p class="text-muted mb-1" style="font-size: .7rem;">

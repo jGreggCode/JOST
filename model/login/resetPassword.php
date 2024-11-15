@@ -2,65 +2,38 @@
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
 	
-	$resetPasswordUsername = '';
 	$resetPasswordPassword1 = '';
 	$resetPasswordPassword2 = '';
 	$hashedPassword = '';
 	
-	if(isset($_POST['resetPasswordUsername'])){
-		$resetPasswordUsername = htmlentities($_POST['resetPasswordUsername']);
-		$resetPasswordPassword1 = htmlentities($_POST['resetPasswordPassword1']);
-		$resetPasswordPassword2 = htmlentities($_POST['resetPasswordPassword2']);
+	if(isset($_POST['changePassword1'])){
+		$resetPasswordPassword1 = htmlentities($_POST['changePassword1']);
+		$resetPasswordPassword2 = htmlentities($_POST['changePassword2']);
+		$changePassUserDetailsUserID = htmlentities($_POST['changePassUserDetailsUserID']);
 		
-		if(!empty($resetPasswordUsername) && !empty($resetPasswordPassword1) && !empty($resetPasswordPassword2)){
-			
-			// Check if username is empty
-			if($resetPasswordUsername == ''){
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your username.</div>';
-				exit();
-			}
-			
-			// Check if passwords are empty
-			if($resetPasswordPassword1 == '' || $resetPasswordPassword2 == ''){
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter both passwords.</div>';
-				exit();
-			}
-			
-			// Check if username is available
-			$usernameCheckingSql = 'SELECT * FROM user WHERE username = :username';
-			$usernameCheckingStatement = $conn->prepare($usernameCheckingSql);
-			$usernameCheckingStatement->execute(['username' => $resetPasswordUsername]);
+		if(!empty($resetPasswordPassword1) && !empty($resetPasswordPassword2)){
 
-			// Encrypt the password
-			$hashedPassword = md5($resetPasswordPassword1);
-			
-			// Check the given credentials
-			$checkUserSql = 'SELECT * FROM user WHERE username = :username AND password = :password';
-			$checkUserStatement = $conn->prepare($checkUserSql);
-			$checkUserStatement->execute(['username' => $resetPasswordUsername, 'password' => $hashedPassword]);
-
-			
-			if($checkUserStatement->rowCount() < 1){
-				// Username doesn't exist. Hence can't reset password
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Wrong old password.</div>';
+			if ($resetPasswordPassword1 !== $resetPasswordPassword2) {
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Password does not match!</div>';
 				exit();
 			} else {
-				// Check if passwords are equal
-				
-				// Start UPDATING password to DB
-				// Encrypt the password
-				$hashedPassword = md5($resetPasswordPassword2);
-				$updatePasswordSql = 'UPDATE user SET password = :password WHERE username = :username';
+
+				$hashedPassword = md5($resetPasswordPassword1);
+				$updatePasswordSql = 'UPDATE user SET password = :password WHERE userID = :userID';
 				$updatePasswordStatement = $conn->prepare($updatePasswordSql);
-				$updatePasswordStatement->execute(['password' => $hashedPassword, 'username' => $resetPasswordUsername]);
+				$updatePasswordStatement->execute([
+					'password' => $hashedPassword, 
+					'userID' => $changePassUserDetailsUserID
+				]);
 				
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Password reset complete. Please login using your new password.</div>';
-				exit();
 				
+				exit();
 			}
+			
 		} else {
 			// One or more mandatory fields are empty. Therefore, display a the error message
-			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter all fields marked with a (*)</div>';
+			echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Enter all fields</div>';
 			exit();
 		}
 	}

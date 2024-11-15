@@ -48,7 +48,4 @@
                 'Action' => $action
             ]);
         }
-        
-        echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Registration complete.</div>';
-	    exit();
     }

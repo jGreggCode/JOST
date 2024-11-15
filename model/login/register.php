@@ -2,6 +2,7 @@
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
 	require_once('../audit/insertAudit.php');
+	require_once('../../send.php');
 	
 	$registerFullName = '';
 	$registerUsername = '';
@@ -11,10 +12,22 @@
 	$registerPassword1 = '';
 	$registerPassword2 = '';
 	$hashedPassword = '';
-	
+	// 
 	function isValidEmail($registerEmail) {
 		$pattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
 		return preg_match($pattern, $registerEmail);
+	}
+
+	function validatePhilippineNumber($registerPhoneNo) {
+		// Regular expression pattern for Philippine numbers in different valid formats
+		$pattern = '/^(09\d{9}|9\d{9}|639\d{9})$/';
+	
+		// Check if the number matches the pattern
+		if (preg_match($pattern, $registerPhoneNo)) {
+			return true; // Valid Philippine number
+		} else {
+			return false; // Invalid number
+		}
 	}
 	
 	if(isset($_POST['registerUsername'])){
@@ -25,6 +38,7 @@
 		$registerPhoneNo = htmlentities($_POST['registerPhoneNo']);
 		$registerPassword1 = htmlentities($_POST['registerPassword1']);
 		$registerPassword2 = htmlentities($_POST['registerPassword2']);
+
 		
 		if(!empty($registerFullName) && !empty($registerUsername) && !empty($registerUserType) && !empty($registerPassword1) && !empty($registerPassword2)){
 			
@@ -33,29 +47,34 @@
 			
 			// Check if name is empty
 			if($registerFullName == ''){
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your name.</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Please enter your name.</div>';
 				exit();
 			}
 			
 			// Check if username is empty
 			if($registerUsername == ''){
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your username.</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Please enter your username.</div>';
 				exit();
 			}
 
 			if($registerUsername == ''){
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your username.</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Please enter your username.</div>';
 				exit();
 			}
 			
 			// Check if both passwords are empty
 			if($registerEmail == ''){
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter your Email.</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Please enter your Email.</div>';
 				exit();
 			}
 
 			if (!isValidEmail($registerEmail)) {
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Invalid Email!</div>';
+				echo '<div class="alert alert-danger" style="color: red;">Invalid Email!</div>';
+				exit();
+			}
+
+			if (!validatePhilippineNumber($registerPhoneNo)) {
+				echo '<div class="alert alert-danger" style="color: red;">Invalid Phone Number!</div>';
 				exit();
 			}
 			
@@ -96,18 +115,24 @@
 						'password' => $hashedPassword,
 						'mobile' => $registerPhoneNo
 					]);
+
 					
 					// Insert To Audit
 					$message = $registerFullName . " has registered under account name " .  "\"" . $registerUsername . "\"";
+					
+					echo '<div class="alert alert-danger" style="color: green;">Registered Successfully, please check your email.</div>';
+					
+					// Add audit for user registration
 					registerAudit($registerUsername, $message);
 
-					echo '<div class="alert alert-success" style="color: green;">Registration complete. Check your email</div>';
+					// Send registered email
+					registerSendEmail($registerUserType, $registerEmail);
 					exit();
 				}
 			}
 		} else {
 			// One or more mandatory fields are empty. Therefore, display a the error message
-			echo '<div class="alert alert-danger" style="color: red;">Please enter all fields</div>';
+			echo '<div class="alert alert-danger" style="color: red;">Please enter all fields</div>';	
 			exit();
 		}
 	}

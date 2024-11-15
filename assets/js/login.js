@@ -3,7 +3,6 @@ $(document).ready(function(){
 	// Listen to register button
 	$('#register').on('click', function(){
 		register();
-		sendRegisterEmail();
 	});
 	
 	// Listen to reset password button
@@ -15,8 +14,46 @@ $(document).ready(function(){
 	$('#login').on('click', function(){
 		login();
 	});
+
+	// Listen to Forgotpass button
+	$('#forgotpass').on('click', function(){
+		forgotPass();
+	});
+
+	$('#changePassBtn').on('click', function(){
+		changePass();
+	});
 });
 
+function changePass() {
+	var userDetailsUserPassword1 = $('#userDetailsUserPassword1').val();
+	var userDetailsUserPassword2 = $('#userDetailsUserPassword2').val();
+	var userDetailsUserID = $('#userID').text();
+
+	console.log(userDetailsUserPassword1);
+	console.log(userDetailsUserPassword2);
+	console.log(userDetailsUserID);
+
+	$.ajax({
+		url: '../model/login/resetPassword.php',
+		method: 'POST',
+		data: {
+			changePassword1: userDetailsUserPassword1,
+			changePassword2: userDetailsUserPassword2,
+			changePassUserDetailsUserID: userDetailsUserID
+		},
+		success: function(data) {
+			console.log('AJAX Response:', data); // Log the response
+			$('#changePass').html(data).fadeIn();
+			setTimeout(function() {
+                $('#changePass').fadeOut();
+            }, 3000);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
+		}
+	});
+}
 
 // Function to register a new user
 function register(){
@@ -27,8 +64,6 @@ function register(){
 	var registerPhoneNo = $('#registerPhoneNo').val();
 	var registerPassword1 = $('#registerPassword1').val();
 	var registerPassword2 = $('#registerPassword2').val();
-
-	console.log('User Type:', registerUserType);
 	
 	$.ajax({
 		url: 'model/login/register.php',
@@ -44,7 +79,10 @@ function register(){
 		},
 		success: function(data) {
 			console.log('AJAX Response:', data); // Log the response
-			$('#registerMessage').html(data);
+			$('#registerMessage').html(data).fadeIn();
+			setTimeout(function() {
+                $('#registerMessage').fadeOut();
+            }, 2000);
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
@@ -62,10 +100,6 @@ function sendRegisterEmail() {
 		data: {
 			registerUserType: registerUserType, 
 			registerEmail: registerEmail, 
-		},
-		success: function(data) {
-			console.log('AJAX Response:', data); // Log the response
-			$('#registerMessage').html(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
@@ -109,7 +143,28 @@ function login(){
 		},
 		success: function(data){
 			$('#loginMessage').html(data);
-			
+			$('#loginMessage').html(data).fadeIn();
+			setTimeout(function() {
+                $('#loginMessage').fadeOut();
+            }, 2000);
+			if(data.indexOf('Login Success') >= 0){
+				window.location = 'dashboard.php';
+			}
+		}
+	});
+}
+
+function forgotPass(){
+	var loginUsername = $('#loginUsername').val();
+	
+	$.ajax({
+		url: 'model/login/forgotPass.php',
+		method: 'POST',
+		data: {
+			forgotPass:loginUsername,
+		},
+		success: function(data){
+			$('#loginMessage').html(data).fadeIn();
 		}
 	});
 }

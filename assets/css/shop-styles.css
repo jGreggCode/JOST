@@ -160,6 +160,11 @@ h5.profile-heading {
   border-radius: 2rem;
 }
 
+.btn-theme {
+  background-color: var(--color-dark);
+  color: white;
+}
+
 .btn:hover {
   opacity: .8;
 }

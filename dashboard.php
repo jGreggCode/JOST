@@ -230,6 +230,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link" data-toggle="tab" href="#auditSearchTab">Audit</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#vendorSearchTab">Supplier</a>
+                                        </li>
                                         <?php
                                     } else if ($usertype === 'Employee' || $usertype === 'Admin') {
                                         ?>
@@ -319,7 +322,7 @@
                                     </div>
                                     <div id="vendorSearchTab" class="container-fluid tab-pane fade">
                                         <br>
-                                        <p>Use the grid below to search user details</p>
+                                        <p>Use the grid below to search suppliers details</p>
                                         <div class="table-responsive" id="vendorDetailsTableDiv"></div>
                                     </div>
                                     <div id="auditSearchTab" class="container-fluid tab-pane fade">
