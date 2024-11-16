@@ -296,12 +296,12 @@
                                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                                         <script type="text/javascript">
                                             <?php 
-                                                $saleDetailsSearchSql = 'SELECT itemName, quantity FROM sale';
+                                                $saleDetailsSearchSql = 'SELECT itemNumber, quantity FROM order_items';
                                                 $saleDetailsSearchStatement = $conn->prepare($saleDetailsSearchSql);
                                                 $saleDetailsSearchStatement->execute();
                                                 $salesData = [];
                                                 while($row = $saleDetailsSearchStatement->fetch(PDO::FETCH_ASSOC)) {
-                                                    $salesData[] = [$row['itemName'], (int)$row['quantity']];
+                                                    $salesData[] = [$row['itemNumber'], (int)$row['quantity']];
                                                 }
                                                 
                                                 // Convert PHP array to JSON

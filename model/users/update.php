@@ -1,88 +1,84 @@
 <?php
     require_once('../../inc/config/constants.php');
     require_once('../../inc/config/db.php');
-    require_once('../../inc/errorhandling.php');
     require_once('../audit/insertAudit.php');
     $id = $_GET["id"];
 
-    if (isset($_POST["submitUpdate"])) {
-        $fullName = htmlentities($_POST['userDetailsUserFullName']);
-        $username = htmlentities($_POST['userDetailsUserUsername']);
-        $mobile = htmlentities($_POST['userDetailsUserMobile']);
-        $location = htmlentities($_POST['userDetailsUserLocation']);
-        $email = htmlentities($_POST['userDetailsUserEmail']);
+    // if (isset($_POST["submitUpdate"])) {
+    //     $fullName = htmlentities($_POST['userDetailsUserFullName']);
+    //     $username = htmlentities($_POST['userDetailsUserUsername']);
+    //     $mobile = htmlentities($_POST['userDetailsUserMobile']);
+    //     $location = htmlentities($_POST['userDetailsUserLocation']);
+    //     $email = htmlentities($_POST['userDetailsUserEmail']);
 
-        if ($_GET['ACTION'] === 'ADMIN') {
-            $position = htmlentities($_POST['userDetailsUserPosition']);
-            $status = htmlentities($_POST['userDetailsUserStatus']);
+    //     if ($_GET['ACTION'] === 'ADMIN') {
+    //         $position = htmlentities($_POST['userDetailsUserPosition']);
+    //         $status = htmlentities($_POST['userDetailsUserStatus']);
             
-            $updateVendorDetailsSql = 'UPDATE user SET fullName = :fullName, usertype = :usertype, username = :username, email = :email, status = :status, mobile = :mobile, location = :location  WHERE userID = :userID';
-            $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
-            $updateVendorDetailsStatement->execute(['fullName' => $fullName, 'usertype' => $position, 'username' => $username, 'email' => $email, 'status' => $status, 'mobile' => $mobile, 'location' => $location, 'userID' => $id]);
+    //         $updateVendorDetailsSql = 'UPDATE user SET fullName = :fullName, usertype = :usertype, username = :username, email = :email, status = :status, mobile = :mobile, location = :location  WHERE userID = :userID';
+    //         $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
+    //         $updateVendorDetailsStatement->execute(['fullName' => $fullName, 'usertype' => $position, 'username' => $username, 'email' => $email, 'status' => $status, 'mobile' => $mobile, 'location' => $location, 'userID' => $id]);
             
             
 
-            if ($id === $_SESSION['userid']) {
-                $_SESSION['usertype'] = $position;
-            }
+    //         if ($id === $_SESSION['userid']) {
+    //             $_SESSION['usertype'] = $position;
+    //         }
             
-            if ($status === "Disabled" && $id === $_SESSION['userid']) {
-                unset($_SESSION['loggedIn']);
-                unset($_SESSION['fullName']);
-                unset($_SESSION['usertype']);
-                session_destroy();
-                header('Location: ../../dashboard.php');
-                exit();
-            }
+    //         if ($status === "Disabled" && $id === $_SESSION['userid']) {
+    //             unset($_SESSION['loggedIn']);
+    //             unset($_SESSION['fullName']);
+    //             unset($_SESSION['usertype']);
+    //             session_destroy();
+    //             header('Location: ../../dashboard.php');
+    //             exit();
+    //         }
 
-        } else if ($_GET['ACTION'] === 'EDIT') {
-            // Construct the UPDATE query
-            $updateVendorDetailsSql = 'UPDATE user SET fullName = :fullName, username = :username, email = :email, mobile = :mobile, location = :location  WHERE userID = :userID';
-            $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
-            $updateVendorDetailsStatement->execute(['fullName' => $fullName, 'username' => $username, 'email' => $email, 'mobile' => $mobile, 'location' => $location, 'userID' => $_SESSION['userid']]);
+    //     } else if ($_GET['ACTION'] === 'EDIT') {
+    //         // Construct the UPDATE query
+    //         $updateVendorDetailsSql = 'UPDATE user SET fullName = :fullName, username = :username, email = :email, mobile = :mobile, location = :location  WHERE userID = :userID';
+    //         $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
+    //         $updateVendorDetailsStatement->execute(['fullName' => $fullName, 'username' => $username, 'email' => $email, 'mobile' => $mobile, 'location' => $location, 'userID' => $_SESSION['userid']]);
             
-            $_SESSION['fullName'] = $fullName;
-            $_SESSION['mobile'] = $mobile;
-            $_SESSION['location'] = $location;
-            $_SESSION['email'] = $email;
-        }
+    //         $_SESSION['fullName'] = $fullName;
+    //         $_SESSION['mobile'] = $mobile;
+    //         $_SESSION['location'] = $location;
+    //         $_SESSION['email'] = $email;
+    //     }
 
-        $action = "Account Info Updated (Account)";
-        insertAudit($action);
+    //     $action = "Account Info Updated (Account)";
+    //     insertAudit($action);
     
-        update("Details Updated Successfully!");
-        exit();
-    } else if (isset($_POST["submitDelete"])) {
+    //     update("Details Updated Successfully!");
+    //     exit();
+    // } else if (isset($_POST["submitDelete"])) {
 
-        $idSql = 'SELECT * FROM user where userID = :id LIMIT 1';
-        $idSqlStatement = $conn->prepare($idSql);
-        $idSqlStatement->execute(['id' => $id]);
+    //     $idSql = 'SELECT * FROM user where userID = :id LIMIT 1';
+    //     $idSqlStatement = $conn->prepare($idSql);
+    //     $idSqlStatement->execute(['id' => $id]);
 
-        if ($idSqlStatement->rowCount() > 0){
-            $found = $idSqlStatement->fetch(PDO::FETCH_ASSOC);
+    //     if ($idSqlStatement->rowCount() > 0){
+    //         $found = $idSqlStatement->fetch(PDO::FETCH_ASSOC);
 
-            if ($_SESSION['userid'] == $id) {
-                update("You cannot delete yourself!");
-                exit();
-            }
-            // Construct the UPDATE query
-            $updateVendorDetailsSql = 'DELETE FROM user WHERE userID = :userID';
-            $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
-            $updateVendorDetailsStatement->execute(['userID' => $id]);
+    //         if ($_SESSION['userid'] == $id) {
+    //             update("You cannot delete yourself!");
+    //             exit();
+    //         }
+    //         // Construct the UPDATE query
+    //         $updateVendorDetailsSql = 'DELETE FROM user WHERE userID = :userID';
+    //         $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
+    //         $updateVendorDetailsStatement->execute(['userID' => $id]);
 
-            update("User Deleted Successfully!");
-        } else {
-            update("No User Selected!");
-            exit();
-        }
-    }
+    //         update("User Deleted Successfully!");
+    //     } else {
+    //         update("No User Selected!");
+    //         exit();
+    //     }
+    // }
 
     function showStatus($row) {
         if ($_GET['ACTION'] !== 'EDIT') {
-            ?>  <div class="col mt-2">
-                    <label class="form-label">Account ID</label>
-                    <input type="text" class="form-control" name="userDetailsUserID" id="userDetailsUserID" value="<?php echo $_GET['id']; ?>" disabled>
-                </div>
+            ?>  
                 <div class="col mt-2">
                     <label class="form-label">Status</label>
                     <select class="form-control" name="userDetailsUserStatus" id="userDetailsUserStatus" disabled>
@@ -246,8 +242,9 @@
         </div>
 
         <div class="container d-flex justify-content-center">
-            <form action="" method="POST" style="width:55vw; min-width:300px;">
+            <form style="width:55vw; min-width:300px;">
                 <div id="loginMessage"></div>
+                <div id="message"></div>
                     <?php if (isset($_GET['message'])): ?>
                         <?php 
                             if (htmlspecialchars($_GET['message']) == "No User Selected!") {
@@ -265,7 +262,7 @@
                 <div class="row">
                     <div class="col mt-2">
                         <label class="form-label">Full Name</label>
-                        <input placeholder="Full Name" type="text" class="form-control" name="userDetailsUserFullName" value="<?php echo $row['fullName'] ?? "" ; ?>">
+                        <input placeholder="Full Name" type="text" class="form-control" name="userDetailsUserFullName" id="userDetailsUserFullName" value="<?php echo $row['fullName'] ?? "" ; ?>">
                     </div>
 
                     <?php showStatus($row); ?>
@@ -288,19 +285,19 @@
                 <div class="row">
                     <div class="col mt-2">
                         <label class="form-label">Mobile <small style="font-weight: 500;">(Format: 09123456789)</small></label>
-                        <input placeholder="Mobile" type="text" class="form-control" name="userDetailsUserMobile" value="<?php echo $row['mobile'] ?? ""; ?>">
+                        <input placeholder="Mobile" type="text" class="form-control" name="userDetailsUserMobile" id="userDetailsUserMobile" value="<?php echo $row['mobile'] ?? ""; ?>">
                     </div>
 
                     <div class="col mt-2">
                         <label class="form-label">Location</label>
-                        <input placeholder="Location" type="text" class="form-control" name="userDetailsUserLocation" value="<?php echo $row['location'] ?? ""; ?>">
+                        <input placeholder="Location" type="text" class="form-control" name="userDetailsUserLocation" id="userDetailsUserLocation" value="<?php echo $row['location'] ?? ""; ?>">
                     </div>
                 </div>
                 <br>
 
-                <button type="submit" class="btn btn-success" name="submitUpdate">Update</button>
-                <?php echo ($_GET['ACTION'] !== 'EDIT') ? '<button type="submit" class="btn btn-danger" name="submitDelete">Delete</button>
-                <input type="button" id="activate" value="Activate" class="btn btn-primary">
+                <button type="button" class="btn btn-success" name="submitUpdate" id="submitUpdate">Update</button>
+                <?php echo ($_GET['ACTION'] !== 'EDIT') ? '<button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+                <input type="button" id="activateBtn" value="Activate" class="btn btn-primary">
                 <input type="button" id="deactivate" value="Deactivate" class="btn btn-warning">' : ''; 
                 ?>
                 
@@ -317,6 +314,7 @@
     <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../vendor/bootbox/bootbox.min.js"></script>
     <script src="../../assets/js/activation.js" ></script>    
+    <script src="../../assets/js/accountUpdate.js" ></script>    
 </body>
 
 </html>

@@ -1665,6 +1665,7 @@ function updateItem() {
 	var itemDetailsItemName = $('#itemDetailsItemName').val();
 	var itemDetailsDiscount = $('#itemDetailsDiscount').val();
 	var itemDetailsQuantity = $('#itemDetailsQuantity').val();
+	var itemDetailsCategory = $('#itemDetailsProductCategory').val();
 	var itemDetailsUnitPrice = $('#itemDetailsUnitPrice').val();
 	var itemDetailsStatus = $('#itemDetailsStatus').val();
 	var itemDetailsDescription = $('#itemDetailsDescription').val();
@@ -1677,12 +1678,13 @@ function updateItem() {
 			itemDetailsItemName:itemDetailsItemName,
 			itemDetailsDiscount:itemDetailsDiscount,
 			itemDetailsQuantity:itemDetailsQuantity,
+			itemDetailsCategory:itemDetailsCategory,
 			itemDetailsUnitPrice:itemDetailsUnitPrice,
 			itemDetailsStatus:itemDetailsStatus,
 			itemDetailsDescription:itemDetailsDescription,
 		},
 		success: function(data){
-			var result = $.parseJSON(data);
+			var result = JSON.parse(data);
 			$('#itemDetailsMessage').fadeIn();
 			$('#itemDetailsMessage').html(result.alertMessage);
 			if(result.newStock != null){

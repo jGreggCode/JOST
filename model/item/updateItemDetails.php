@@ -9,7 +9,7 @@ session_start();
 		$itemNumber = htmlentities($_POST['itemNumber']);
 		$itemName = htmlentities($_POST['itemDetailsItemName']);
 		$discount = htmlentities($_POST['itemDetailsDiscount']);
-		$category = htmlentities($_POST['itemDetailsProductCategory']);
+		$category = htmlentities($_POST['itemDetailsCategory']);
 		$itemDetailsQuantity = htmlentities($_POST['itemDetailsQuantity']);
 		$itemDetailsUnitPrice = htmlentities($_POST['itemDetailsUnitPrice']);
 		$status = htmlentities($_POST['itemDetailsStatus']);
@@ -30,6 +30,13 @@ session_start();
 			} else {
 				// Quantity is not a valid number
 				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid number for quantity</div>';
+				$data = ['alertMessage' => $errorAlert];
+				echo json_encode($data);
+				exit();
+			}
+
+			if ($category == '') {
+				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid category.</div>';
 				$data = ['alertMessage' => $errorAlert];
 				echo json_encode($data);
 				exit();
@@ -61,6 +68,7 @@ session_start();
 			$stockSelectSql = 'SELECT stock FROM item WHERE itemNumber = :itemNumber';
 			$stockSelectStatement = $conn->prepare($stockSelectSql);
 			$stockSelectStatement->execute(['itemNumber' => $itemNumber]);
+
 			if($stockSelectStatement->rowCount() > 0) {
 				$row = $stockSelectStatement->fetch(PDO::FETCH_ASSOC);
 				$initialStock = $row['stock'];
@@ -68,6 +76,7 @@ session_start();
 			} else {
 				// Item is not in DB. Therefore, stop the update and quit
 				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Item Number does not exist in DB. Therefore, update not possible.</div>';
+				header('Content-Type: application/json');
 				$data = ['alertMessage' => $errorAlert];
 				echo json_encode($data);
 				exit();

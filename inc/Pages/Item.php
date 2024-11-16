@@ -24,12 +24,12 @@
                                 <div id="itemDetailsItemNumberSuggestionsDiv" class="customListDivWidth"></div>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="itemDetailsProductID">Product ID <small>Auto Generated</small></label>
-                                <input class="form-control invTooltip" type="number" readonly  id="itemDetailsProductID" name="itemDetailsProductID" title="This will be auto-generated when you add a new item">
-                            </div>
-                            <div class="form-group col-md-3">
                                 <label for="itemDetailsProductID">Category</label>
                                 <input class="form-control invTooltip" type="text" id="itemDetailsProductCategory" name="itemDetailsProductCategory">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="itemDetailsProductID">Product ID <small>Auto Generated</small></label>
+                                <input class="form-control invTooltip" type="number" readonly  id="itemDetailsProductID" name="itemDetailsProductID" title="This will be auto-generated when you add a new item">
                             </div>
                         </div>
                         <div class="form-row">
@@ -52,19 +52,23 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="itemDetailsDiscount">Discount %</label>
                                 <input type="text" class="form-control" value="0" name="itemDetailsDiscount" id="itemDetailsDiscount">
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="itemDetailsQuantity">Quantity<span class="requiredIcon">*</span></label>
                                 <input type="number" class="form-control" value="0" name="itemDetailsQuantity" id="itemDetailsQuantity">
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="itemDetailsUnitPrice">Unit Price<span class="requiredIcon">*</span></label>
-                                <input type="text" class="form-control" value="0" name="itemDetailsUnitPrice" id="itemDetailsUnitPrice">
+                            <div class="form-group col-md-2">
+                                <label for="itemDetailsUnitPrice">Costing Price<span class="requiredIcon">*</span></label>
+                                <input type="number" class="form-control" value="0" name="itemDetailsCostingPrice" id="itemDetailsCostingPrice">
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
+                                <label for="itemDetailsUnitPrice">Unit Price<span class="requiredIcon">*</span></label>
+                                <input type="number" class="form-control" value="0" name="itemDetailsUnitPrice" id="itemDetailsUnitPrice">
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label for="itemDetailsTotalStock">Total Stock</label>
                                 <input type="text" class="form-control" name="itemDetailsTotalStock" id="itemDetailsTotalStock" readonly>
                             </div>
