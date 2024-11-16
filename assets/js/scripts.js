@@ -21,7 +21,6 @@ auditDetailsSearchTableCreatorFile = 'model/audit/auditDetailsSearchTableCreator
 usersDetailsSearchTableCreatorFile = 'model/users/usersDetailsSearchTableCreator.php';
 
 
-
 // File that creates the purchase reports search table
 purchaseReportsSearchTableCreatorFile = 'model/purchase/purchaseReportsSearchTableCreator.php';
 
@@ -36,6 +35,9 @@ vendorReportsSearchTableCreatorFile = 'model/vendor/vendorReportsSearchTableCrea
 
 // File that creates the sale reports search table
 saleReportsSearchTableCreatorFile = 'model/sale/saleReportsSearchTableCreator.php';
+
+// File that creates the item search table
+itemSearchTableCreator = 'model/item/itemSearchTableCreator.php';
 
 
 
@@ -145,6 +147,59 @@ $(document).ready(function(){
 		addSale();
 	});
 	
+	$('#addOrderButton').on('click', function(){
+		console.log("Working");
+		var saleItems = [];
+		// Loop through all rows in the table and get the necessary data
+		$(".all-items tr").each(function() {
+			var itemNumber = $(this).find(".item-number").text(); // Item Number
+			var quantity = $(this).find(".quantity-input").val(); // Quantity
+			var unitPrice = $(this).find(".total-price").text(); // Total Price (Unit Price * Quantity)
+			
+			// Add the item data to the saleItems array
+			saleItems.push({
+				itemNumber: itemNumber,
+				quantity: quantity,
+				unitPrice: parseFloat(unitPrice)
+			});
+		});
+
+		// Get other sale details from the form or other input fields
+		var saleDetailsCustomerID = $('#saleDetailsCustomerID').val();
+		var saleDetailsCustomerName = $('#saleDetailsCustomerName').val();
+		var saleDetailsSaleDate = $('#saleDetailsSaleDate').val();
+		var saleDetailsCash = $('#saleDetailsCash').val();
+		var saleDetailsDiscount = $('#saleDetailsDiscount').val();
+		var saleDetailsItemStatus = $('#saleDetailsItemStatus').val();
+
+		$.ajax({
+			url: 'model/sale/insertOrder.php',
+			method: 'POST',
+			data: {
+				saleItems: JSON.stringify(saleItems), // Send the saleItems array as a JSON string
+				saleDetailsCustomerID: saleDetailsCustomerID,
+				saleDetailsCustomerName: saleDetailsCustomerName,
+				saleDetailsSaleDate: saleDetailsSaleDate,
+				saleDetailsCash: saleDetailsCash,
+				saleDetailsDiscount: saleDetailsDiscount,
+				saleDetailsItemStatus: saleDetailsItemStatus
+			},
+			success: function(data) {
+				$('#saleDetailsMessage').fadeIn();
+				$('#saleDetailsMessage').html(data);
+			},
+			complete: function() {
+				// You can include your additional functions to refresh or update data here
+				getItemStockToPopulate('saleDetailsItemNumber', getItemStockFile, 'saleDetailsTotalStock');
+				populateLastInsertedID(saleLastInsertedIDFile, 'saleDetailsSaleID');
+				searchTableCreator('saleDetailsTableDiv', saleDetailsSearchTableCreatorFile, 'saleDetailsTable');
+				searchTableCreator('itemSearchItemTableDiv', itemSearchTableCreator, 'itemSearchTable');
+				reportsSaleTableCreator('saleReportsTableDiv', saleReportsSearchTableCreatorFile, 'saleReportsTable');
+				searchTableCreator('itemDetailsTableDiv', itemDetailsSearchTableCreatorFile, 'itemDetailsTable');
+				reportsTableCreator('itemReportsTableDiv', itemReportsSearchTableCreatorFile, 'itemReportsTable');
+			}
+		});
+	});
 	// Listen to update button in item details tab
 	$('#updateItemDetailsButton').on('click', function(){
 		updateItem();
@@ -397,6 +452,7 @@ $(document).ready(function(){
 
 	// Load searchable datatables for customer, purchase, item, vendor, sale
 	searchTableCreator('itemDetailsTableDiv', itemDetailsSearchTableCreatorFile, 'itemDetailsTable');
+	searchTableCreator('itemSearchItemTableDiv', itemSearchTableCreator, 'itemSearchTable');
 	searchTableCreator('purchaseDetailsTableDiv', purchaseDetailsSearchTableCreatorFile, 'purchaseDetailsTable');
 	searchTableCreator('customerDetailsTableDiv', customerDetailsSearchTableCreatorFile, 'customerDetailsTable');
 	searchTableCreator('saleDetailsTableDiv', saleDetailsSearchTableCreatorFile, 'saleDetailsTable');
@@ -427,6 +483,7 @@ $(document).ready(function(){
 	// Listen to refresh buttons
 	$('#searchTablesRefresh, #reportsTablesRefresh').on('click', function(){
 		searchTableCreator('itemDetailsTableDiv', itemDetailsSearchTableCreatorFile, 'itemDetailsTable');
+		searchTableCreator('itemSearchItemTableDiv', itemSearchTableCreator, 'itemSearchTable');
 		searchTableCreator('purchaseDetailsTableDiv', purchaseDetailsSearchTableCreatorFile, 'purchaseDetailsTable');
 		searchTableCreator('customerDetailsTableDiv', customerDetailsSearchTableCreatorFile, 'customerDetailsTable');
 		searchTableCreator('vendorDetailsTableDiv', vendorDetailsSearchTableCreatorFile, 'vendorDetailsTable');
@@ -1128,6 +1185,63 @@ function addPurchase() {
 
 
 // Function to call the insertSale.php script to insert sale data to db
+
+function addOrder(button) {	
+	console.log("Working");
+	var saleItems = [];
+	// Loop through all rows in the table and get the necessary data
+	$(".all-items tr").each(function() {
+		var itemNumber = $(button).find(".item-number").text(); // Item Number
+		var itemName = $(button).find(".item-name").text(); // Item Name
+		var quantity = $(button).find(".quality-input").val(); // Quantity
+		var unitPrice = $(button).find(".total-price").text(); // Total Price (Unit Price * Quantity)
+		
+		// Add the item data to the saleItems array
+		saleItems.push({
+			itemNumber: itemNumber,
+			itemName: itemName,
+			quantity: quantity,
+			unitPrice: parseFloat(unitPrice)
+		});
+	});
+
+	// Get other sale details from the form or other input fields
+    var saleDetailsCustomerID = $('#saleDetailsCustomerID').val();
+    var saleDetailsCustomerName = $('#saleDetailsCustomerName').val();
+    var saleDetailsSaleDate = $('#saleDetailsSaleDate').val();
+    var saleDetailsCash = $('#saleDetailsCash').val();
+    var saleDetailsDiscount = $('#saleDetailsDiscount').val();
+    var saleDetailsItemStatus = $('#saleDetailsItemStatus').val();
+	
+	$.ajax({
+        url: 'model/sale/insertOrder.php',
+        method: 'POST',
+        data: {
+            saleItems: JSON.stringify(saleItems), // Send the saleItems array as a JSON string
+            saleDetailsCustomerID: saleDetailsCustomerID,
+            saleDetailsCustomerName: saleDetailsCustomerName,
+            saleDetailsSaleDate: saleDetailsSaleDate,
+            saleDetailsCash: saleDetailsCash,
+            saleDetailsDiscount: saleDetailsDiscount,
+            saleDetailsItemStatus: saleDetailsItemStatus
+        },
+        success: function(data) {
+            $('#saleDetailsMessage').fadeIn();
+            $('#saleDetailsMessage').html(data);
+        },
+        complete: function() {
+            // You can include your additional functions to refresh or update data here
+            getItemStockToPopulate('saleDetailsItemNumber', getItemStockFile, 'saleDetailsTotalStock');
+            populateLastInsertedID(saleLastInsertedIDFile, 'saleDetailsSaleID');
+            searchTableCreator('saleDetailsTableDiv', saleDetailsSearchTableCreatorFile, 'saleDetailsTable');
+            reportsSaleTableCreator('saleReportsTableDiv', saleReportsSearchTableCreatorFile, 'saleReportsTable');
+            searchTableCreator('itemDetailsTableDiv', itemDetailsSearchTableCreatorFile, 'itemDetailsTable');
+            reportsTableCreator('itemReportsTableDiv', itemReportsSearchTableCreatorFile, 'itemReportsTable');
+        }
+    });
+}
+
+
 function addSale() {
 	var saleDetailsItemNumber = $('#saleDetailsItemNumber').val();
 	var saleDetailsItemName = $('#saleDetailsItemName').val();

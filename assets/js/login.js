@@ -23,7 +23,92 @@ $(document).ready(function(){
 	$('#changePassBtn').on('click', function(){
 		changePass();
 	});
+
+	// Listen to register button
+	$(document).on('click', '.addOrder', function(){
+        addOrder(this);
+	});
+
+	$(document).on("click", ".removeOrder", function () {
+		$(this).closest("tr").remove(); // Removes the row
+		updateTotalPrice();
+	});
+
+	$(document).on("input", ".quantity-input", function () {
+		const quantity = parseInt($(this).val(), 10); // Get the current quantity as an integer
+		const pricePerUnit = parseFloat($(this).data("price")); // Get the original price per unit
+
+		// If quantity is zero, remove the row
+		if (quantity === 0) {
+			$(this).closest("tr").remove();
+		} else if (!isNaN(quantity) && !isNaN(pricePerUnit)) {
+			// Otherwise, update the total price for this row
+			const totalPrice = quantity * pricePerUnit;
+			$(this).closest("tr").find(".total-price").text(totalPrice.toFixed(2));
+		}
+
+		updateTotalPrice();
+	  });
 });
+
+function updateTotalPrice() {
+  let total = 0;
+
+  // Iterate through all rows and sum up the total price
+  $(".total-price").each(function () {
+    total += parseFloat($(this).text());
+  });
+
+  // Update the total row
+  $("#final-total").text(total.toFixed(2)); // Format to 2 decimal places
+}
+
+function newOrder(itemNumber, itemPrice) {
+	// Create a new row
+	const newRow = `
+    <tr>
+      <th class='item-number'>${itemNumber}</th>
+      <th style="width: 200px">
+        <input style="padding: 0; text-align: center; width: 6rem; margin: 0 auto;" class="quantity-input form-control" type="number" value="1" min="0" data-price="${itemPrice}">
+      </th>
+      <th class="total-price">${itemPrice.toFixed(2)}</th>
+      <th>
+        <input style="padding: 0 10px;" type="button" class="removeOrder btn btn-danger removeOrder" value="Remove">
+      </th>
+    </tr>
+  `;
+
+  $(".all-items").append(newRow);
+  updateTotalPrice();
+}
+
+function addOrder(button) {
+	var buttonID = $(button).attr('id');
+
+	// Extract the Product ID from the button's unique ID
+	var productID = buttonID.split('_')[1]; // Assuming ID is "addOrder_<productID>
+
+	$.ajax({
+		url: 'model/item/addOrder.php',
+		method: 'POST',
+		data: {
+			orderItemID: productID,
+		},
+		success: function(data) {
+			console.log('AJAX Response:', data); // Log the response
+
+			const responseData = JSON.parse(data);
+			// console.log(responseData.itemName); 
+			// console.log(responseData.price);
+
+			newOrder(responseData.itemNumber, responseData.price);
+
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
+		}
+	});
+}
 
 function changePass() {
 	var userDetailsUserPassword1 = $('#userDetailsUserPassword1').val();

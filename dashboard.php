@@ -50,16 +50,49 @@
                     <!-- ===== START OF ORDERS TAB PANEL =====  -->
                     <div class="tab-pane fade" id="v-pills-sale" role="tabpanel" aria-labelledby="v-pills-sale-tab">
                         <div class="card card-outline-secondary my-4">
-                            <div class="card-header">Order Details</div>
+                            <div class="card-header">Order</div>
                             <div class="card-body">
+                                
                                 <div id="saleDetailsMessage"></div>
+                                <div id="" class="container-fluid tab-pane active">
+                                    <h5>Add Item to Order</h5>
+                                    <p>Use the grid below to search all items</p>
+                                    <div class="table-responsive" id="itemSearchItemTableDiv"></div>
+                                </div>
+                                <br>
+
+                                <div id="orders" class="container-fluid">
+                                    <h5>Orders</h5>
+                                    <table id="itemSearchTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Item Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="all-items">
+                                            <!-- Items will be dynamically added here -->
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="2" style="text-align: right;">Total Price:</th>
+                                                    <th id="final-total">0.00</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                                 <form>
+                                    <h5>Order Details</h5>
                                     <div class="form-row">
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                             <label for="saleDetailsItemNumber">Item Number<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control" id="saleDetailsItemNumber" name="saleDetailsItemNumber" autocomplete="off">
                                             <div id="saleDetailsItemNumberSuggestionsDiv" class="customListDivWidth"></div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="saleDetailsCustomerID">Customer ID<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control" id="saleDetailsCustomerID" name="saleDetailsCustomerID" autocomplete="off">
@@ -76,24 +109,16 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-5">
+                                        <!-- <div class="form-group col-md-5">
                                             <label for="saleDetailsItemName">Item Name</label>
-                                            <!--<select id="saleDetailsItemNames" name="saleDetailsItemNames" class="form-control chosenSelect"> -->
-                                            <?php 
-                                                //require('model/item/getItemDetails.php');
-                                                ?>
-                                            <!-- </select> -->
                                             <input type="text" class="form-control invTooltip" id="saleDetailsItemName" name="saleDetailsItemName" readonly title="This will be auto-filled when you enter the item number above">
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="saleDetailsSaleDate">Order Date<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control datepicker" id="saleDetailsSaleDate" value="2024-11-06" name="saleDetailsSaleDate" readonly>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="saleDetailsItemStatus">Status</label>
-                                            <!--
-                                                <input type="text" class="form-control" id="saleDetailsItemStatus" name="saleDetailsItemStatus" autocomplete="off">
-                                                -->
                                             <select class="form-control chosenSelect" name="saleDetailsItemStatus" id="saleDetailsItemStatus" autocomplete="off">
                                                 <option value="To Deliver">To Deliver</option>
                                                 <option value="Delivered">Delivered</option>
@@ -101,22 +126,22 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-2">
+                                        <!-- <div class="form-group col-md-2">
                                             <label for="saleDetailsTotalStock">Total Stock</label>
                                             <input type="text" class="form-control" name="saleDetailsTotalStock" id="saleDetailsTotalStock" readonly>
+                                        </div> -->
+                                        <div class="form-group col-md-2">
+                                            <label for="saleDetailsDiscount">Discount Code</label>
+                                            <input type="text" class="form-control" id="saleDetailsDiscount" name="saleDetailsDiscount" value="">
                                         </div>
                                         <div class="form-group col-md-2">
-                                            <label for="saleDetailsDiscount">Discount %</label>
-                                            <input type="text" class="form-control" id="saleDetailsDiscount" name="saleDetailsDiscount" value="0">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label for="saleDetailsQuantity">Quantity<span class="requiredIcon">*</span></label>
+                                            <label for="saleDetailsQuantity">All Products Quantity<span class="requiredIcon">*</span></label>
                                             <input type="number" class="form-control" id="saleDetailsQuantity" name="saleDetailsQuantity" value="0">
                                         </div>
-                                        <div class="form-group col-md-2">
+                                        <!-- <div class="form-group col-md-2">
                                             <label for="saleDetailsUnitPrice">Unit Price<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control" id="saleDetailsUnitPrice" name="saleDetailsUnitPrice" value="0">
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="saleDetailsTotal">Total</label>
                                             <input type="text" class="form-control" id="saleDetailsTotal" name="saleDetailsTotal">
@@ -134,7 +159,7 @@
                                             <div id="saleDetailsImageContainer"></div>
                                         </div>
                                     </div>
-                                    <button type="button" id="addSaleButton" class="btn btn-success">Add Order</button>
+                                    <button type="button" id="addOrderButton" class="btn btn-success">Add Order</button>
                                     <button type="button" id="updateSaleDetailsButton" class="btn btn-primary">Update</button>
                                     <button type="reset" id="saleClear" class="btn">Clear</button>
                                 </form>
