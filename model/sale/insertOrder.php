@@ -1,8 +1,8 @@
 <?php
-
     session_start();
     require_once('../../inc/config/constants.php');
     require_once('../../inc/config/db.php');
+    require_once('../audit/insertAudit.php');
 
     if(isset($_POST['saleDetailsCustomerID'])) {
 
@@ -95,9 +95,8 @@
                         'quantity' => $quantity,
                         'itemNumber' => $itemNumber
                     ]);
-
-                    echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Order has been successfully added!</div>';
                 }
+                echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Order has been successfully added!</div>';
                 exit();
             }
         }

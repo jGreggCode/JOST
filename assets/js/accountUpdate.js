@@ -5,7 +5,7 @@ $(document).ready(function() {
         var accountID = $('#userID').text();
         if (accountID == 'No user') {
             bootbox.alert("There is no user selected!");
-            exit();
+            return;
         }
 
         bootbox.confirm('Are you sure you want to delete ' + '(UID: ' + accountID + ')', function(result){
@@ -72,6 +72,8 @@ function submitActivate() {
     var activateAccountType = $('#userDetailsUserPosition').val();
     var activateAccountStatus = $('#userDetailsUserStatus').val();
 
+    $('#loadingMessage').fadeIn();
+
     $.ajax({
         url: '../../model/accounts/AccountManagerController.php',
         method: 'POST',
@@ -83,11 +85,24 @@ function submitActivate() {
         success: function(data) {
             console.log('AJAX Response: ', data);
             var result = JSON.parse(data);
+            var message = result.message;
+            var messageLog = $('#message');
 
-            $('#message').html(result.message).fadeIn();
+            if (result.status === 'success') {
+                messageLog.html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            } else if (result.status === 'warning') {
+                messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            } else if (result.status === 'error') {
+                messageLog.html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            }
+
 			setTimeout(function() {
-                $('#message').fadeOut();
+                messageLog.fadeOut();
             }, 3000);
+        },
+        complete: function() {
+            $('#userDetailsUserStatus').val('Active');
+            $('#loadingMessage').fadeOut();
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log('AJAX Error: ', textStatus, errorThrown);

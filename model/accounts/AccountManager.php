@@ -2,7 +2,6 @@
 	session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
-    require_once('../../send.php');
 
     class AccountManager {
         private $db;
@@ -36,7 +35,7 @@
         public function activateAccount($accountEmail) {
             try {
                 // Validate if the account exists and is already active
-                $stmt = $this->db->prepare("SELECT status FROM user WHERE email = :email");
+                $stmt = $this->db->prepare("SELECT status, usertype FROM user WHERE email = :email");
                 $stmt->bindParam(':email', $accountEmail, PDO::PARAM_STR);
                 $stmt->execute();
     
@@ -45,12 +44,12 @@
                 $accountStatus = $result['status'];
     
                 if (!$result) {
-                    $message = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Account not found</div>';
+                    $message = 'Account not found';
                     return ['status' => 'error', 'message' => $message];
                 }
     
-                if ($accountStatus === 'Active') {
-                    $message = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>Account is already active</div>';
+                if ($accountStatus == 'Active') {
+                    $message = 'Account is already active';
                     return ['status' => 'warning', 'message' => $message];
                 }
     
@@ -60,22 +59,14 @@
                 $updateStmt->execute();
     
                 if ($updateStmt->rowCount() > 0) {
-                    // Send activation email
-                    $emailSent = accountActivatedEmail($accountType, $accountEmail); 
-                    if ($emailSent) {
-                        $message = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Account activated and activation email notification has been sent</div>';
-                        return ['status' => 'success', 'message' => $message];
-                    } else {
-                        $message = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>Account activated but email failed to send</div>';
-                        return ['status' => 'warning', 'message' => $message];
-                    }
+                    $message = 'Account activated and activation email notification has been sent';
+                    return ['status' => 'success', 'message' => $message];
                 } else {
-                    $message = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Failed to activate account</div>';
+                    $message = 'Failed to activate account';
                     return ['status' => 'error', 'message' => $message];
                 }
             } catch (PDOException $e) {
-                $message = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>Database error: ' . $e->getMessage() . '</div>';
-                return ['status' => 'error', 'message' => $message];
+                return ['status' => 'error', 'message' => 'Database error:' . $e->getMessage()];
             }
         }
     }

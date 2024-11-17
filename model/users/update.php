@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once('../../inc/config/constants.php');
     require_once('../../inc/config/db.php');
     require_once('../audit/insertAudit.php');
@@ -181,10 +182,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp">
     <!-- ===== CUSTOM STYLE ===== -->
     <link href="../../assets/css/shop-styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/loadingMessage.css">
     <title>JOST System</title>
 </head>
 
 <body>
+    <div id="loadingMessage" class="loading-message" style="display: none;">
+		<div class="spinner"></div>
+		<p>Please wait, processing...</p>
+	</div>
     <nav class="navbar navbar-expand-lg fixed-top"> 
         <div class="container">
             <img src="../../data/item_images/logo.png" width="100px" height="32px" style="margin-right: 10px;">
@@ -245,20 +251,6 @@
             <form style="width:55vw; min-width:300px;">
                 <div id="loginMessage"></div>
                 <div id="message"></div>
-                    <?php if (isset($_GET['message'])): ?>
-                        <?php 
-                            if (htmlspecialchars($_GET['message']) == "No User Selected!") {
-                                ?><div class="alert alert-warning"><?php
-                            } else if (htmlspecialchars($_GET['message']) == "You cannot delete yourself!") {
-                                ?><div class="alert alert-warning"><?php
-                            } else {
-                                ?><div class="alert alert-success"><?php
-                            }
-                        ?>
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <?php echo htmlspecialchars($_GET['message']); ?>
-                </div>
-                <?php endif; ?>
                 <div class="row">
                     <div class="col mt-2">
                         <label class="form-label">Full Name</label>

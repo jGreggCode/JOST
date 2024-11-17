@@ -42,32 +42,32 @@
         exit();
     }
 
-    // Deactivate Account Status and send email
-    if (isset($_POST['deactUserDetailsUserEmail'])) {
-        $deactUserID = $_POST['deactUserDetailsUserID'];
-        $deactivateEmail = $_POST['deactUserDetailsUserEmail'];
-        $deactivateAccountType = $_POST['deactUserDetailsUserPosition'];
-        $deactivateDetailsUserStatus = $_POST['deactUserDetailsUserStatus'];
+    // // Deactivate Account Status and send email
+    // if (isset($_POST['deactUserDetailsUserEmail'])) {
+    //     $deactUserID = $_POST['deactUserDetailsUserID'];
+    //     $deactivateEmail = $_POST['deactUserDetailsUserEmail'];
+    //     $deactivateAccountType = $_POST['deactUserDetailsUserPosition'];
+    //     $deactivateDetailsUserStatus = $_POST['deactUserDetailsUserStatus'];
         
 
-        if ($activateDetailsUserStatus === 'Disabled') {
-            echo '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>Account already deactivated!</div>';
-            exit();
-        } else {
-            echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Account Deactivated Successfully!</div>';
+    //     if ($activateDetailsUserStatus === 'Disabled') {
+    //         echo '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>Account already deactivated!</div>';
+    //         exit();
+    //     } else {
+    //         echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Account Deactivated Successfully!</div>';
             
-            $updateVendorDetailsSql = 'UPDATE user SET status = :status WHERE userID = :userID';
-            $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
-            $updateVendorDetailsStatement->execute([
-                'status' => 'Disabled', 
-                'userID' => $deactUserID
-            ]);
+    //         $updateVendorDetailsSql = 'UPDATE user SET status = :status WHERE userID = :userID';
+    //         $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
+    //         $updateVendorDetailsStatement->execute([
+    //             'status' => 'Disabled', 
+    //             'userID' => $deactUserID
+    //         ]);
             
-            accountDeactivateEmail($deactivateAccountType, $deactivateEmail);
-            exit();
-        }
-        exit();
-    }
+    //         accountDeactivateEmail($deactivateAccountType, $deactivateEmail);
+    //         exit();
+    //     }
+    //     exit();
+    // }
 
     // Send Email for activation
     function accountActivatedEmail($accountType, $recipientEmail) {

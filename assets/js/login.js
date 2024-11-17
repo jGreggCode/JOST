@@ -164,6 +164,8 @@ function register(){
 	var registerPhoneNo = $('#registerPhoneNo').val();
 	var registerPassword1 = $('#registerPassword1').val();
 	var registerPassword2 = $('#registerPassword2').val();
+
+	$('#loadingMessage').fadeIn();
 	
 	$.ajax({
 		url: 'model/login/register.php',
@@ -186,7 +188,18 @@ function register(){
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.error('AJAX Error: ', textStatus, errorThrown); // Log any errors
-		}
+		},
+		complete: function() {
+            // Hide the loading message once the request is complete
+			$('#registerFullName').val('');
+			$('#registerUsername').val('');
+			$('#registerUserType').val('Employee');
+			$('#registerEmail').val('');
+			$('#registerPhoneNo').val('');
+			$('#registerPassword1').val('');
+			$('#registerPassword2').val('');
+            $('#loadingMessage').fadeOut();
+        }
 	});
 }
 
@@ -233,6 +246,8 @@ function resetPassword(){
 function login(){
 	var loginUsername = $('#loginUsername').val();
 	var loginPassword = $('#loginPassword').val();
+
+	$('#loadingMessage').fadeIn();
 	
 	$.ajax({
 		url: 'model/login/checkLogin.php',
@@ -250,6 +265,9 @@ function login(){
 			if(data.indexOf('Login Success') >= 0){
 				window.location = 'dashboard.php';
 			}
+		},
+		complete: function() {
+			$('#loadingMessage').fadeOut();
 		}
 	});
 }

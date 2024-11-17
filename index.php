@@ -24,6 +24,10 @@
 	<title>Jasdy Office and Supplies Trading</title>
 </head>
 <body>
+	<div id="loadingMessage" class="loading-message" style="display: none;">
+		<div class="spinner"></div>
+		<p>Please wait, processing...</p>
+	</div>
 	<div class="container">
 	<div class="forms-container">
 		<div class="signin-signup">
