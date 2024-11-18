@@ -1116,6 +1116,7 @@ function addItem() {
 	var itemDetailsItemName = $('#itemDetailsItemName').val();
 	var itemDetailsDiscount = $('#itemDetailsDiscount').val();
 	var itemDetailsQuantity = $('#itemDetailsQuantity').val();
+	var itemDetailsCosting = $('#itemDetailsCostingPrice').val();
 	var itemDetailsProductCategory = $('#itemDetailsProductCategory').val();
 	var itemDetailsUnitPrice = $('#itemDetailsUnitPrice').val();
 	var itemDetailsStatus = $('#itemDetailsStatus').val();
@@ -1129,6 +1130,7 @@ function addItem() {
 			itemDetailsItemName:itemDetailsItemName,
 			itemDetailsDiscount:itemDetailsDiscount,
 			itemDetailsQuantity:itemDetailsQuantity,
+			itemDetailsCosting: itemDetailsCosting,
 			itemDetailsUnitPrice:itemDetailsUnitPrice,
 			itemDetailsStatus:itemDetailsStatus,
 			itemDetailsProductCategory:itemDetailsProductCategory,
@@ -1306,6 +1308,7 @@ function getItemDetailsToPopulate(){
 			$('#itemDetailsItemName').val(data.itemName);
 			$('#itemDetailsDiscount').val(data.discount);
 			$('#itemDetailsTotalStock').val(data.stock);
+			$('#itemDetailsCostingPrice').val(data.costing);
 			$('#itemDetailsUnitPrice').val(data.unitPrice);
 			$('#itemDetailsProductCategory').val(data.category);
 			$('#itemDetailsDescription').val(data.description);
@@ -1665,6 +1668,7 @@ function updateItem() {
 	var itemDetailsItemName = $('#itemDetailsItemName').val();
 	var itemDetailsDiscount = $('#itemDetailsDiscount').val();
 	var itemDetailsQuantity = $('#itemDetailsQuantity').val();
+	var itemDetailsCosting = $('#itemDetailsCostingPrice').val();
 	var itemDetailsCategory = $('#itemDetailsProductCategory').val();
 	var itemDetailsUnitPrice = $('#itemDetailsUnitPrice').val();
 	var itemDetailsStatus = $('#itemDetailsStatus').val();
@@ -1678,6 +1682,7 @@ function updateItem() {
 			itemDetailsItemName:itemDetailsItemName,
 			itemDetailsDiscount:itemDetailsDiscount,
 			itemDetailsQuantity:itemDetailsQuantity,
+			itemDetailsCosting: itemDetailsCosting,
 			itemDetailsCategory:itemDetailsCategory,
 			itemDetailsUnitPrice:itemDetailsUnitPrice,
 			itemDetailsStatus:itemDetailsStatus,

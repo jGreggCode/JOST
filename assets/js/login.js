@@ -226,7 +226,9 @@ function resetPassword(){
 	var resetPasswordUsername = $('#resetPasswordUsername').val();
 	var resetPasswordPassword1 = $('#resetPasswordPassword1').val();
 	var resetPasswordPassword2 = $('#resetPasswordPassword2').val();
-	
+
+	$('#loadingMessage').fadeIn();
+
 	$.ajax({
 		url: 'model/login/resetPassword.php',
 		method: 'POST',
@@ -237,6 +239,9 @@ function resetPassword(){
 		},
 		success: function(data){
 			$('#resetPasswordMessage').html(data);
+		},
+		complete: function() {
+			$('#loadingMessage').fadeOut();
 		}
 	});
 }
@@ -274,6 +279,8 @@ function login(){
 
 function forgotPass(){
 	var loginUsername = $('#loginUsername').val();
+
+	$('#loadingMessage').fadeIn();
 	
 	$.ajax({
 		url: 'model/login/forgotPass.php',
@@ -286,6 +293,9 @@ function forgotPass(){
 			setTimeout(function() {
                 $('#loginMessage').fadeOut();
             }, 3000);
+		},
+		complete: function() {
+			$('#loadingMessage').fadeOut();
 		}
 	});
 }

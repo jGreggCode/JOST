@@ -2,6 +2,7 @@
 session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	$initialStock = 0;
 	$baseImageFolder = '../../data/item_images/';
@@ -77,16 +78,9 @@ session_start();
 				$insertItemStatement = $conn->prepare($insertItemSql);
 				$insertItemStatement->execute(['itemNumber' => $itemNumber, 'category' => $category, 'itemName' => $itemName, 'discount' => $discount, 'stock' => $quantity, 'unitPrice' => $unitPrice, 'status' => $status, 'description' => $description]);
 				
-				$time = date('Y-m-d H:i:s');
-				$action = "Added Item (Item)";
-				$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-		
-				$insertAuditStatement = $conn->prepare($insertAuditSql);
-				$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
-				
+				insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Added ' . $itemName . ' to items');
+
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item added to database.</div>';
-				
-				
 				exit();
 			}
 

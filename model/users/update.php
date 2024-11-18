@@ -80,6 +80,7 @@
     function showStatus($row) {
         if ($_GET['ACTION'] !== 'EDIT') {
             ?>  
+                <?php $_SESSION['edit'] = 'ADMIN'?>
                 <div class="col mt-2">
                     <label class="form-label">Status</label>
                     <select class="form-control" name="userDetailsUserStatus" id="userDetailsUserStatus" disabled>
@@ -133,6 +134,7 @@
     function showChangePass() {
         if ($_GET['ACTION'] === 'EDIT') {
             ?>
+                <?php $_SESSION['edit'] = 'NOTADMIN'?>
                 <div class="text-center mb-4" style="margin-top: 2rem;">
                     
                     <hr style="background-color: black;">
@@ -287,10 +289,10 @@
                 </div>
                 <br>
 
-                <button type="button" class="btn btn-success" name="submitUpdate" id="submitUpdate">Update</button>
+                <button type="button" class="btn btn-success" name="updateBtn" id="updateBtn">Update</button>
                 <?php echo ($_GET['ACTION'] !== 'EDIT') ? '<button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
                 <input type="button" id="activateBtn" value="Activate" class="btn btn-primary">
-                <input type="button" id="deactivate" value="Deactivate" class="btn btn-warning">' : ''; 
+                <input type="button" id="deactivateBtn" value="Deactivate" class="btn btn-warning">' : ''; 
                 ?>
                 
             </form>

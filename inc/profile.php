@@ -4,7 +4,7 @@
 <!-- Profile -->
 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-reports-tab">
     <div class="card card-outline-secondary my-4">
-        <div class="card-header">Profile
+        <div class="card-header">PROFILE
             <button onclick="location.href='model/users/update.php?id=<?php echo $_SESSION['userid']; ?>&ACTION=EDIT'" type="button" data-mdb-button-init data-mdb-ripple-init class="btn float-right btn-sm btn-edit-profile">
             <i class='bx bx-edit'></i> Edit Profile</button>
         </div>

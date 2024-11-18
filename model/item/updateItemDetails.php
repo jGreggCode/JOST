@@ -2,6 +2,7 @@
 session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	// Check if the POST query is received
 	if(isset($_POST['itemNumber'])) {
@@ -11,6 +12,7 @@ session_start();
 		$discount = htmlentities($_POST['itemDetailsDiscount']);
 		$category = htmlentities($_POST['itemDetailsCategory']);
 		$itemDetailsQuantity = htmlentities($_POST['itemDetailsQuantity']);
+		$itemDetailsCosting = htmlentities($_POST['itemDetailsCosting']);
 		$itemDetailsUnitPrice = htmlentities($_POST['itemDetailsUnitPrice']);
 		$status = htmlentities($_POST['itemDetailsStatus']);
 		$description = htmlentities($_POST['itemDetailsDescription']);
@@ -83,9 +85,9 @@ session_start();
 			}
 		
 			// Construct the UPDATE query
-			$updateItemDetailsSql = 'UPDATE item SET itemName = :itemName, category = :category, discount = :discount, stock = :stock, unitPrice = :unitPrice, status = :status, description = :description WHERE itemNumber = :itemNumber';
+			$updateItemDetailsSql = 'UPDATE item SET itemName = :itemName, category = :category, discount = :discount, stock = :stock, costing = :costing, unitPrice = :unitPrice, status = :status, description = :description WHERE itemNumber = :itemNumber';
 			$updateItemDetailsStatement = $conn->prepare($updateItemDetailsSql);
-			$updateItemDetailsStatement->execute(['itemName' => $itemName, 'category' => $category, 'discount' => $discount, 'stock' => $newStock, 'unitPrice' => $itemDetailsUnitPrice, 'status' => $status, 'description' => $description, 'itemNumber' => $itemNumber]);
+			$updateItemDetailsStatement->execute(['itemName' => $itemName, 'category' => $category, 'discount' => $discount, 'stock' => $newStock, 'costing' => $itemDetailsCosting, 'unitPrice' => $itemDetailsUnitPrice, 'status' => $status, 'description' => $description, 'itemNumber' => $itemNumber]);
 			
 			// UPDATE item name in sale table
 			$updateItemInSaleTableSql = 'UPDATE sale SET itemName = :itemName WHERE itemNumber = :itemNumber';
@@ -96,13 +98,8 @@ session_start();
 			$updateItemInPurchaseTableSql = 'UPDATE purchase SET itemName = :itemName WHERE itemNumber = :itemNumber';
 			$updateItemInPurchaseTableSstatement = $conn->prepare($updateItemInPurchaseTableSql);
 			$updateItemInPurchaseTableSstatement->execute(['itemName' => $itemName, 'itemNumber' => $itemNumber]);
-
-			$time = date('Y-m-d H:i:s');
-			$action = "Item Info Updated (Item)";
-			$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
 	
-			$insertAuditStatement = $conn->prepare($insertAuditSql);
-			$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+			insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Updated ' . $itemName . ' details');
 			
 			$successAlert = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item details updated.</div>';
 			$data = ['alertMessage' => $successAlert, 'newStock' => $newStock];

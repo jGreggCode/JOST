@@ -75,12 +75,15 @@
 
                 $itemAddSql = "INSERT INTO order_items (saleID, itemNumber, quantity, unitPrice) VALUES (:saleID, :itemNumber, :quantity, :unitPrice)";
                 $itemAddStatement = $conn->prepare($itemAddSql);
-                $itemNum = 0;
+                $totalSold = 0;
+                $totalSale = 0.0;
 
                 foreach ($saleItems as $item) {
                     $itemNumber = $item['itemNumber'];
                     $quantity = $item['quantity'];
                     $unitPrice = $item['unitPrice'];
+                    $totalSold += $quantity;
+                    $totalSale += $unitPrice * $quantity;
 
                     $itemAddStatement->execute([
                         'saleID' => $saleID,
@@ -96,6 +99,19 @@
                         'itemNumber' => $itemNumber
                     ]);
                 }
+
+                $updateTotalOrder = 'UPDATE user SET sales = sales + :sales, sold = sold + :sold WHERE userID = :sellerID';
+                $updateTotalOrderStatement = $conn->prepare($updateTotalOrder);
+                $updateTotalOrderStatement->execute([
+                    'sales' => $totalSale,
+                    'sold' => $totalSold,
+                    'sellerID' => $sellerID
+                ]);
+
+                insertAudit('Account: ' . '(' . $sellerID . ')' . ' made a sale');
+                $_SESSION['sales'] += $totalSale;
+                $_SESSION['sold'] += $totalSold;
+
                 echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Order has been successfully added!</div>';
                 exit();
             }

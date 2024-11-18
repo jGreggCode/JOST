@@ -7,7 +7,7 @@
 	$vendorDetailsSearchStatement->execute();
 
 	$output = '<table id="usersDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
-				<thead class="thead-dark">
+				<thead class="">
 					<tr style="">
 						<th>Action</th>
 						<th>Account ID</th>

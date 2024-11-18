@@ -69,6 +69,148 @@
                 return ['status' => 'error', 'message' => 'Database error:' . $e->getMessage()];
             }
         }
+
+        // Method to deactivate an account
+        public function deactivateAccount($accountEmail) {
+            try {
+                // Validate if the account exists and is already active
+                $stmt = $this->db->prepare("SELECT status, usertype FROM user WHERE email = :email");
+                $stmt->bindParam(':email', $accountEmail, PDO::PARAM_INT);
+                $stmt->execute();
+    
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $accountStatus = $result['status'];
+    
+                if (!$result) {
+                    $message = 'Account not found';
+                    return ['status' => 'error', 'message' => $message];
+                }
+    
+                if ($accountStatus == 'Disabled') {
+                    $message = 'Account is already deactivated';
+                    return ['status' => 'warning', 'message' => $message];
+                }
+    
+                // Activate the account
+                $updateStmt = $this->db->prepare("UPDATE user SET status = 'Disabled' WHERE email = :email");
+                $updateStmt->bindParam(':email', $accountEmail, PDO::PARAM_STR);
+                $updateStmt->execute();
+    
+                if ($updateStmt->rowCount() > 0) {
+                    $message = 'Account deactivated and deactivation email notification has been sent';
+                    return ['status' => 'success', 'message' => $message];
+                } else {
+                    $message = 'Failed to deactivate account';
+                    return ['status' => 'error', 'message' => $message];
+                }
+            } catch (PDOException $e) {
+                return ['status' => 'error', 'message' => 'Database error:' . $e->getMessage()];
+            }
+        }
+
+        public function submitUpdate(
+            $updateUserID,
+            $updateUserDetailsUserFullName,
+            $updateUserDetailsUserUsername,
+            $updateUserDetailsUserEmail,
+            $updateUserDetailsUserMobile,
+            $updateUserDetailsUserLocation,
+        ) {
+            try {
+                // Validate if the account exists and is already active
+                $stmt = $this->db->prepare("SELECT * FROM user WHERE userID = :updateUserID");
+                $stmt->bindParam(':updateUserID', $updateUserID, PDO::PARAM_STR);
+                $stmt->execute();
+    
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                if (!$result) {
+                    $message = 'Account not found';
+                    return ['status' => 'error', 'message' => $message];
+                }
+    
+                // Activate the account
+                $updateStmt = $this->db->prepare("UPDATE user SET 
+                    fullName = :fullName, 
+                    username = :username, 
+                    email = :email,
+                    mobile = :mobile, 
+                    location = :location 
+                    WHERE userID = :userID"
+                );
+                $updateStmt->execute([
+                    'fullName' => $updateUserDetailsUserFullName,
+                    'username' => $updateUserDetailsUserUsername,
+                    'email' => $updateUserDetailsUserEmail,
+                    'mobile' => $updateUserDetailsUserMobile,
+                    'location' => $updateUserDetailsUserLocation,
+                    'userID' => $updateUserID
+
+                ]);
+    
+                if ($updateStmt->rowCount() > 0) {
+                    $message = 'Account details Successfully updated';
+                    return ['status' => 'success', 'message' => $message];
+                } else {
+                    $message = 'Failed to update account details';
+                    return ['status' => 'error', 'message' => $message];
+                }
+            } catch (PDOException $e) {
+                return ['status' => 'error', 'message' => 'Database error:' . $e->getMessage()];
+            }
+        }
+
+        public function adminUpdate(
+            $updateUserID,
+            $updateUserDetailsUserFullName,
+            $updateUserDetailsUserUsername,
+            $updateUserDetailsUserEmail,
+            $updateUserDetailsUserMobile,
+            $updateUserDetailsUserLocation
+        ) {
+            try {
+                // Validate if the account exists and is already active
+                $stmt = $this->db->prepare("SELECT * FROM user WHERE userID = :updateUserID");
+                $stmt->bindParam(':updateUserID', $updateUserID, PDO::PARAM_STR);
+                $stmt->execute();
+    
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                if (!$result) {
+                    $message = 'Account not found';
+                    return ['status' => 'error', 'message' => $message];
+                }
+    
+                // Activate the account
+                $updateStmt = $this->db->prepare("UPDATE user SET 
+                    fullName = :fullName, 
+                    username = :username, 
+                    email = :email, 
+                    mobile = :mobile, 
+                    location = :location 
+                    WHERE userID = :userID"
+                );
+                $updateStmt->execute([
+                    'fullName' => $updateUserDetailsUserFullName,
+                    'username' => $updateUserDetailsUserUsername,
+                    'email' => $updateUserDetailsUserEmail,
+                    'mobile' => $updateUserDetailsUserMobile,
+                    'location' => $updateUserDetailsUserLocation,
+                    'userID' => $updateUserID
+
+                ]);
+    
+                if ($updateStmt->rowCount() > 0) {
+                    $message = 'Account details Successfully updated';
+                    return ['status' => 'success', 'message' => $message];
+                } else {
+                    $message = 'Failed to update account details';
+                    return ['status' => 'error', 'message' => $message];
+                }
+            } catch (PDOException $e) {
+                return ['status' => 'error', 'message' => 'Database error:' . $e->getMessage()];
+            }
+        }
     }
 
 	
