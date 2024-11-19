@@ -62,11 +62,18 @@
 				$getSalesStatement = $conn->prepare($getSalesSql); // Fixed the variable name
 				$getSalesStatement->execute();
 
+				$getExpenseSql = 'SELECT SUM(unitPrice * quantity) AS expense FROM purchase';
+				$getExpenseStatement = $conn->prepare($getExpenseSql); // Fixed the variable name
+				$getExpenseStatement->execute();
+
 				// Fetch the result
 				$result = $getSalesStatement->fetch(PDO::FETCH_ASSOC);
+				$resultExpense = $getExpenseStatement->fetch(PDO::FETCH_ASSOC);
 
 				// Store the total_sales value in session
 				$_SESSION['companysales'] = $result['total_sales'] ?? 0;
+				// Store the total_expense value in session
+				$_SESSION['companyexpense'] = $resultExpense['expense'] ?? 0;
 				
 				/*
 				if ($_SESSION['usertype'] === 'Admin') {

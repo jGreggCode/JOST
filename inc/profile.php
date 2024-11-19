@@ -39,6 +39,20 @@
                             </div>
                         </div>
                     </div>
+                    <?php 
+                        if ($_SESSION['usertype'] === 'Admin') {
+                            ?>
+                            <div class="expenses">
+                                <span class="material-icons-sharp">bar_chart</span>
+                                <div class="middle">
+                                    <div class="lef">
+                                        <h5>JOST Total Expense</h5>
+                                        <h5 class="text-muted">PHP <?php echo $_SESSION['companyexpense'] ?? 0; ?></h5>
+                                    </div>
+                                </div>
+                            </div> <?php
+                        }
+                    ?>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">

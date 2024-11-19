@@ -2,6 +2,7 @@
 	session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	$itemNumber = htmlentities($_POST['itemDetailsItemNumber']);
 	
@@ -25,12 +26,7 @@
 				$deleteItemStatement = $conn->prepare($deleteItemSql);
 				$deleteItemStatement->execute(['itemNumber' => $itemNumber]);
 
-				$time = date('Y-m-d H:i:s');
-				$action = "Item Deleted (Item)";
-				$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-		
-				$insertAuditStatement = $conn->prepare($insertAuditSql);
-				$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+				insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Deleted ' . $itemNumber);
 
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item deleted.</div>';
 				exit();

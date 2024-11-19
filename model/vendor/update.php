@@ -2,6 +2,7 @@
 session_start();
     require_once('../../inc/config/constants.php');
     require_once('../../inc/config/db.php');
+    require_once('../audit/insertAudit.php');
     $id = $_GET["id"];
 
     if (isset($_POST["submitUpdate"])) {
@@ -12,12 +13,7 @@ session_start();
         $updateVendorDetailsStatement = $conn->prepare($updateVendorDetailsSql);
         $updateVendorDetailsStatement->execute(['email' => $vendorDetailsVendorEmail, 'vendorID' => $id]);
 
-        $time = date('Y-m-d H:i:s');
-        $action = "Supplier Info Updated (Supplier)";
-        $insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-
-        $insertAuditStatement = $conn->prepare($insertAuditSql);
-        $insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+        insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Updated vendor' . $id);
 
         header('Location: ../../index.php');
         exit();

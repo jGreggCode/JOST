@@ -2,6 +2,7 @@
 	session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	if(isset($_POST['purchaseDetailsItemNumber'])){
 
@@ -92,14 +93,7 @@
 				$updateStockStatement = $conn->prepare($updateStockSql);
 				$updateStockStatement->execute(['stock' => $newStock, 'itemNumber' => $purchaseDetailsItemNumber]);
 
-				// Record to audit
-				$time = date('Y-m-d H:i:s');
-				$action = "Added Stock (Restock)";
-				
-				$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-
-				$insertAuditStatement = $conn->prepare($insertAuditSql);
-				$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+				insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Restock ' . $purchaseDetailsItemNumber);
 				
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details added to database and stock values updated.</div>';
 				exit();

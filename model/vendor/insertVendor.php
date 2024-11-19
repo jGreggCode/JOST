@@ -2,6 +2,7 @@
 session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	if(isset($_POST['vendorDetailsStatus'])){
 		
@@ -63,12 +64,7 @@ session_start();
 			$stmt = $conn->prepare($sql);
 			$stmt->execute(['fullName' => $fullName, 'email' => $email, 'mobile' => $mobile, 'phone2' => $phone2, 'address' => $address, 'address2' => $address2, 'city' => $city, 'district' => $district, 'status' => $status]);
 			
-			$time = date('Y-m-d H:i:s');
-			$action = "Added Supplier (Supplier)";
-			$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-	
-			$insertAuditStatement = $conn->prepare($insertAuditSql);
-			$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+			insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Add vendor' . $fullName);
 			
 			echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Supplier added to database</div>';
 		} else {

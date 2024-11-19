@@ -83,13 +83,7 @@
 					$updateVendorInPurchaseTableStatement = $conn->prepare($updateVendorInPurchaseTableSql);
 					$updateVendorInPurchaseTableStatement->execute(['vendorName' => $vendorDetailsVendorFullName, 'vendorID' => $vendorDetailsVendorID]);
 					
-					// Create Audit
-					$time = date('Y-m-d H:i:s');
-					$action = "Supplier Info Updated (Supplier)";
-					$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-			
-					$insertAuditStatement = $conn->prepare($insertAuditSql);
-					$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+					insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Updated vendor' . $vendorDetailsVendorID . ' details.');
 
 					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Supplier details updated.</div>';
 					exit();

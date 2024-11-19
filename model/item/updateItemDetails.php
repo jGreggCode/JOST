@@ -78,7 +78,6 @@ session_start();
 			} else {
 				// Item is not in DB. Therefore, stop the update and quit
 				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Item Number does not exist in DB. Therefore, update not possible.</div>';
-				header('Content-Type: application/json');
 				$data = ['alertMessage' => $errorAlert];
 				echo json_encode($data);
 				exit();

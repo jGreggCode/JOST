@@ -4,6 +4,7 @@
 session_start();
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
+	require_once('../audit/insertAudit.php');
 	
 	if(isset($_POST['purchaseDetailsPurchaseID'])){
 
@@ -132,14 +133,7 @@ session_start();
 					$updatePurchaseDetailsStatement = $conn->prepare($updatePurchaseDetailsSql);
 					$updatePurchaseDetailsStatement->execute(['itemNumber' => $purchaseDetailsItemNumber, 'purchaseDate' => $purchaseDetailsPurchaseDate, 'itemName' => $purchaseDetailsItemName, 'unitPrice' => $purchaseDetailsUnitPrice, 'quantity' => $purchaseDetailsQuantity, 'vendorName' => $purchaseDetailsVendorName, 'vendorID' => $vendorID, 'purchaseID' => $purchaseDetailsPurchaseID]);
 					
-					// Record to audit
-					$time = date('Y-m-d H:i:s');
-					$action = "Update Restock (Restock)";
-					
-					$insertAuditSql = 'INSERT INTO audit(`time`, userID, usertype, userName, Action) VALUES(:time, :userID, :usertype, :userName, :Action)';
-
-					$insertAuditStatement = $conn->prepare($insertAuditSql);
-					$insertAuditStatement->execute(['time' => $time, 'userID' => $_SESSION['userid'], 'usertype' => $_SESSION['usertype'], 'userName' => $_SESSION['fullName'], 'Action' => $action]);
+					insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Updated Item Number and restock ' . $purchaseDetailsItemNumber);
 					
 					echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details added to database and stock values updated.</div>';
 					exit();
@@ -171,6 +165,8 @@ session_start();
 						$updatePurchaseDetailsStatement = $conn->prepare($updatePurchaseDetailsSql);
 						$updatePurchaseDetailsStatement->execute(['purchaseDate' => $purchaseDetailsPurchaseDate, 'unitPrice' => $purchaseDetailsUnitPrice, 'quantity' => $purchaseDetailsQuantity, 'vendorName' => $purchaseDetailsVendorName, 'vendorID' => $vendorID, 'purchaseID' => $purchaseDetailsPurchaseID]);
 						
+						insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Restock ' . $purchaseDetailsItemNumber);
+
 						echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Restock details added to database and stock values updated.</div>';
 						exit();
 						

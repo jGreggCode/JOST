@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="saleDetailsSaleID">Order ID <small>Auto Generated</small></label>
-                                            <input type="text" class="form-control invTooltip" id="saleDetailsSaleID" name="saleDetailsSaleID" title="This will be auto-generated when you add a new record" autocomplete="off">
+                                            <input readonly type="text" class="form-control invTooltip" id="saleDetailsSaleID" name="saleDetailsSaleID" title="This will be auto-generated when you add a new record" autocomplete="off">
                                             <div id="saleDetailsSaleIDSuggestionsDiv" class="customListDivWidth"></div>
                                         </div>
                                     </div>
@@ -134,18 +134,18 @@
                                             <label for="saleDetailsDiscount">Discount Code</label>
                                             <input type="text" class="form-control" id="saleDetailsDiscount" name="saleDetailsDiscount" value="">
                                         </div>
-                                        <div class="form-group col-md-2">
+                                        <!-- <div class="form-group col-md-2">
                                             <label for="saleDetailsQuantity">All Products Quantity<span class="requiredIcon">*</span></label>
                                             <input type="number" class="form-control" id="saleDetailsQuantity" name="saleDetailsQuantity" value="0">
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="form-group col-md-2">
                                             <label for="saleDetailsUnitPrice">Unit Price<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control" id="saleDetailsUnitPrice" name="saleDetailsUnitPrice" value="0">
                                         </div> -->
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                             <label for="saleDetailsTotal">Total</label>
                                             <input type="text" class="form-control" id="saleDetailsTotal" name="saleDetailsTotal">
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="saleDetailsTotal">Cash</label>
                                             <select class="form-control" name="saleDetailsCash" id="saleDetailsCash">
