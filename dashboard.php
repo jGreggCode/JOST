@@ -117,23 +117,23 @@
                                             <label for="saleDetailsSaleDate">Order Date<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control datepicker" id="saleDetailsSaleDate" value="2024-11-06" name="saleDetailsSaleDate" readonly>
                                         </div>
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-2">
+                                            <label for="saleDetailsDiscount">Discount Code</label>
+                                            <input type="text" class="form-control" id="saleDetailsDiscount" name="saleDetailsDiscount" value="">
+                                        </div>
+                                        <!-- <div class="form-group col-md-3">
                                             <label for="saleDetailsItemStatus">Status</label>
                                             <select class="form-control chosenSelect" name="saleDetailsItemStatus" id="saleDetailsItemStatus" autocomplete="off">
-                                                <option value="To Deliver">To Deliver</option>
+                                                <option value="To Deliver">Out of stock</option>
                                                 <option value="Delivered">Delivered</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="form-row">
                                         <!-- <div class="form-group col-md-2">
                                             <label for="saleDetailsTotalStock">Total Stock</label>
                                             <input type="text" class="form-control" name="saleDetailsTotalStock" id="saleDetailsTotalStock" readonly>
                                         </div> -->
-                                        <div class="form-group col-md-2">
-                                            <label for="saleDetailsDiscount">Discount Code</label>
-                                            <input type="text" class="form-control" id="saleDetailsDiscount" name="saleDetailsDiscount" value="">
-                                        </div>
                                         <!-- <div class="form-group col-md-2">
                                             <label for="saleDetailsQuantity">All Products Quantity<span class="requiredIcon">*</span></label>
                                             <input type="number" class="form-control" id="saleDetailsQuantity" name="saleDetailsQuantity" value="0">
@@ -146,13 +146,13 @@
                                             <label for="saleDetailsTotal">Total</label>
                                             <input type="text" class="form-control" id="saleDetailsTotal" name="saleDetailsTotal">
                                         </div> -->
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                             <label for="saleDetailsTotal">Cash</label>
                                             <select class="form-control" name="saleDetailsCash" id="saleDetailsCash">
                                                 <option value="Cash Payment">Cash Payment</option>
                                                 <option value="Online Payment">Onlne Payment</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
                                     <button type="button" id="addOrderButton" class="btn btn-success">Add Order</button>
-                                    <button type="button" id="updateSaleDetailsButton" class="btn btn-primary">Update</button>
+                                    <!-- <button type="button" id="updateSaleDetailsButton" class="btn btn-primary">Update</button> -->
                                     <button type="reset" id="saleClear" class="btn">Clear</button>
                                 </form>
                             </div>
@@ -240,7 +240,7 @@
                     <!-- ===== START OF SEARCH TAB PANEL =====  -->
                     <div class="tab-pane fade" id="v-pills-search" role="tabpanel" aria-labelledby="v-pills-search-tab">
                         <div class="card card-outline-secondary my-4">
-                            <div class="card-header">Search Inventory<button id="searchTablesRefresh" name="searchTablesRefresh" class="btn btn-warning float-right btn-sm">Refresh</button></div>
+                            <div class="card-header">Records Hub<button id="searchTablesRefresh" name="searchTablesRefresh" class="btn btn-warning float-right btn-sm">Refresh</button></div>
                             <div class="card-body">
                                 <ul class="nav nav-tabs" role="tablist">
                                 <?php 

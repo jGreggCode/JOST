@@ -166,7 +166,8 @@
             $updateUserDetailsUserUsername,
             $updateUserDetailsUserEmail,
             $updateUserDetailsUserMobile,
-            $updateUserDetailsUserLocation
+            $updateUserDetailsUserLocation,
+            $updateUserDetailsUserType
         ) {
             try {
                 // Validate if the account exists and is already active
@@ -185,6 +186,7 @@
                 $updateStmt = $this->db->prepare("UPDATE user SET 
                     fullName = :fullName, 
                     username = :username, 
+                    usertype = :usertype,
                     email = :email, 
                     mobile = :mobile, 
                     location = :location 
@@ -193,6 +195,7 @@
                 $updateStmt->execute([
                     'fullName' => $updateUserDetailsUserFullName,
                     'username' => $updateUserDetailsUserUsername,
+                    'usertype' => $updateUserDetailsUserType,
                     'email' => $updateUserDetailsUserEmail,
                     'mobile' => $updateUserDetailsUserMobile,
                     'location' => $updateUserDetailsUserLocation,

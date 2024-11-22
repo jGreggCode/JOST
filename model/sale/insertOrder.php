@@ -11,9 +11,9 @@
         $saleDetailsCustomerID = $_POST['saleDetailsCustomerID'];
         $saleDetailsCustomerName = $_POST['saleDetailsCustomerName'];
         $saleDetailsSaleDate = $_POST['saleDetailsSaleDate'];
-        $saleDetailsCash = $_POST['saleDetailsCash'];
+        $saleDetailsCash = $_POST['saleDetailsCash'] ?? 0;
         $saleDetailsDiscount = $_POST['saleDetailsDiscount'];
-        $saleDetailsItemStatus = $_POST['saleDetailsItemStatus'];
+        $saleDetailsItemStatus = $_POST['saleDetailsItemStatus'] ?? 'Active';
 
         // Check if mandatory fields are not empty
 		if(!empty($sellerID) && 

@@ -14,8 +14,6 @@
 						<th>Seller ID</th>
 						<th>Customer Name</th>
 						<th>Order Date</th>
-						<th>MOP</th>
-						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>';
@@ -29,8 +27,6 @@
 						'<td>' . $row['sellerID'] . '</td>' .
 						'<td>' . $row['customerName'] . '</td>' .
 						'<td>' . $row['saleDate'] . '</td>' .
-						'<td>' . $row['payment'] . '</td>' .
-						'<td>' . $row['status'] . '</td>' .
 					'</tr>';
 	}
 	

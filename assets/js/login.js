@@ -182,6 +182,7 @@ function register(){
 		success: function(data) {
 			console.log('AJAX Response:', data); // Log the response
 			$('#registerMessage').html(data).fadeIn();
+			
 			setTimeout(function() {
                 $('#registerMessage').fadeOut();
             }, 2000);
@@ -191,13 +192,6 @@ function register(){
 		},
 		complete: function() {
             // Hide the loading message once the request is complete
-			$('#registerFullName').val('');
-			$('#registerUsername').val('');
-			$('#registerUserType').val('Employee');
-			$('#registerEmail').val('');
-			$('#registerPhoneNo').val('');
-			$('#registerPassword1').val('');
-			$('#registerPassword2').val('');
             $('#loadingMessage').fadeOut();
         }
 	});

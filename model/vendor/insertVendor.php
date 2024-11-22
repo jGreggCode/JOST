@@ -14,7 +14,6 @@ session_start();
 		$address2 = htmlentities($_POST['vendorDetailsVendorAddress2']);
 		$city = htmlentities($_POST['vendorDetailsVendorCity']);
 		$district = htmlentities($_POST['vendorDetailsVendorDistrict']);
-		$status = htmlentities($_POST['vendorDetailsStatus']);
 	
 		if(isset($fullName) && isset($mobile) && isset($address)) {
 			// Validate mobile number
@@ -60,9 +59,9 @@ session_start();
 			}
 			
 			// Start the insert process
-			$sql = 'INSERT INTO vendor(fullName, email, mobile, phone2, address, address2, city, district, status) VALUES(:fullName, :email, :mobile, :phone2, :address, :address2, :city, :district, :status)';
+			$sql = 'INSERT INTO vendor(fullName, email, mobile, phone2, address, address2, city, district) VALUES(:fullName, :email, :mobile, :phone2, :address, :address2, :city, :district)';
 			$stmt = $conn->prepare($sql);
-			$stmt->execute(['fullName' => $fullName, 'email' => $email, 'mobile' => $mobile, 'phone2' => $phone2, 'address' => $address, 'address2' => $address2, 'city' => $city, 'district' => $district, 'status' => $status]);
+			$stmt->execute(['fullName' => $fullName, 'email' => $email, 'mobile' => $mobile, 'phone2' => $phone2, 'address' => $address, 'address2' => $address2, 'city' => $city, 'district' => $district]);
 			
 			insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Add vendor' . $fullName);
 			

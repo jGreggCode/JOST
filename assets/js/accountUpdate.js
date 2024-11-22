@@ -72,8 +72,8 @@ function submitUpdate() {
     var updateUserDetailsUserLocation = $('#userDetailsUserLocation').val();
     var updateUserDetailsUserOldPass = $('#userDetailsUserOldPass').val();
     var updateUserDetailsUserNewPass = $('#userDetailsUserNewPass').val();
-
     // Admin Priviledge
+    var updateUserDetailsUserType = $('#userDetailsUserPosition').val();
     var updateUserDetailsUserStatus = $('#userDetailsUserStatus').val();
     var updateUserDetailsUserPosition = $('#userDetailsUserPosition').val();
     
@@ -92,6 +92,7 @@ function submitUpdate() {
             updateUserDetailsUserOldPass: updateUserDetailsUserOldPass,
             updateUserDetailsUserNewPass: updateUserDetailsUserNewPass,
             // ADMIN
+            updateUserDetailsUserType: updateUserDetailsUserType,
             updateUserDetailsUserStatus: updateUserDetailsUserStatus,
             updateUserDetailsUserPosition: updateUserDetailsUserPosition
         },

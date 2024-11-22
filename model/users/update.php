@@ -241,7 +241,7 @@
 
     ?>
     <div class="container">
-        <div style="position: fixed;bottom: 0;right: 0; margin: 1rem;">
+        <div style="position: fixed;top: 4rem;right: 0; margin: 1rem;">
             <a href="../../dashboard.php" class="btn btn-theme"><i class="fa-solid fa-chevron-left"></i> Go Back</a>
         </div>
         <div class="text-center mb-4">

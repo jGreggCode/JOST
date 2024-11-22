@@ -193,7 +193,6 @@ if ($saleDetailsSearchStatement->rowCount() > 0) {
     $content .= '
         </table>
         <div class="invoice-footer">
-            <p>Payment Mode: '. $paymentMode . '</p>
             <p><strong>Thank you for your business!</strong></p>
             <p style="color: #616161; font-size: 10rem;">For inquiries, contact us at +63 123 4567 890 or visit our website.</p>
         </div>

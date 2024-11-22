@@ -79,6 +79,7 @@ session_start();
 				$insertItemStatement->execute(['itemNumber' => $itemNumber, 'category' => $category, 'itemName' => $itemName, 'discount' => $discount, 'stock' => $quantity, 'unitPrice' => $unitPrice, 'status' => $status, 'description' => $description]);
 				
 				insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Added ' . $itemName . ' to items');
+				
 
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item added to database.</div>';
 				exit();

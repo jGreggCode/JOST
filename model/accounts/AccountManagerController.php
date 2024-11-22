@@ -2,6 +2,7 @@
 	require_once 'AccountManager.php';
 	require_once '../../send.php';
 	require_once '../audit/insertAudit.php';
+	require_once './GetAccountDetails.php';
 
 
     // Handle AJAX request
@@ -89,14 +90,15 @@
 		// If the editor is Admin
 		if ($_SESSION['edit'] == 'ADMIN') {
 			$updateUserDetailsUserStatus = trim($_POST['updateUserDetailsUserStatus']);
-			$updateUserDetailsUserPosition = trim($_POST['updateUserDetailsUserPosition']);
+			$updateUserDetailsUserType = trim($_POST['updateUserDetailsUserType']);
 
 			$response = $accountManager->adminUpdate($updateUserID, 
 				$updateUserDetailsUserFullName, 
 				$updateUserDetailsUserUsername, 
 				$updateUserDetailsUserEmail, 
 				$updateUserDetailsUserMobile, 
-				$updateUserDetailsUserLocation
+				$updateUserDetailsUserLocation,
+				$updateUserDetailsUserType
 			);
 		} else {
 			$response = $accountManager->submitUpdate(
@@ -107,6 +109,8 @@
 				$updateUserDetailsUserMobile,
 				$updateUserDetailsUserLocation,
 			);
+
+			getAccountDetails($updateUserID);
 		}
 
 		if ($response['status'] === 'success') {

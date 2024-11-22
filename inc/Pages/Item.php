@@ -38,12 +38,12 @@
                                 <input type="text" class="form-control" name="itemDetailsItemName" id="itemDetailsItemName" autocomplete="off">
                                 <div id="itemDetailsItemNameSuggestionsDiv" class="customListDivWidth"></div>
                             </div>
-                            <div class="form-group col-md-2">
+                            <!-- <div class="form-group col-md-2">
                                 <label for="itemDetailsStatus">Status</label>
                                 <select id="itemDetailsStatus" name="itemDetailsStatus" class="form-control chosenSelect">
                                 <?php include('inc/statusList.html'); ?>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6" style="display:inline-block">
@@ -52,10 +52,10 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-2">
+                            <!-- <div class="form-group col-md-2">
                                 <label for="itemDetailsDiscount">Discount %</label>
                                 <input type="text" class="form-control" value="0" name="itemDetailsDiscount" id="itemDetailsDiscount">
-                            </div>
+                            </div> -->
                             <div class="form-group col-md-2">
                                 <label for="itemDetailsQuantity">Quantity<span class="requiredIcon">*</span></label>
                                 <input type="number" class="form-control" value="0" name="itemDetailsQuantity" id="itemDetailsQuantity">
@@ -77,8 +77,6 @@
                             </div>
                         </div>
                         <button type="button" id="addItem" class="btn btn-success">Add Item</button>
-                        <button type="button" id="updateItemDetailsButton" class="btn btn-primary">Update</button>
-                        <button type="button" id="deleteItem" class="btn btn-danger">Delete</button>
                         <button type="reset" class="btn" id="itemClear">Clear</button>
                     </form>
                 </div>

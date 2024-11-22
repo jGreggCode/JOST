@@ -9,12 +9,12 @@ session_start();
 		
 		$itemNumber = htmlentities($_POST['itemNumber']);
 		$itemName = htmlentities($_POST['itemDetailsItemName']);
-		$discount = htmlentities($_POST['itemDetailsDiscount']);
+		// $discount = htmlentities($_POST['itemDetailsDiscount']);
 		$category = htmlentities($_POST['itemDetailsCategory']);
 		$itemDetailsQuantity = htmlentities($_POST['itemDetailsQuantity']);
 		$itemDetailsCosting = htmlentities($_POST['itemDetailsCosting']);
 		$itemDetailsUnitPrice = htmlentities($_POST['itemDetailsUnitPrice']);
-		$status = htmlentities($_POST['itemDetailsStatus']);
+		// $status = htmlentities($_POST['itemDetailsStatus']);
 		$description = htmlentities($_POST['itemDetailsDescription']);
 		
 		$initialStock = 0;
@@ -84,9 +84,9 @@ session_start();
 			}
 		
 			// Construct the UPDATE query
-			$updateItemDetailsSql = 'UPDATE item SET itemName = :itemName, category = :category, discount = :discount, stock = :stock, costing = :costing, unitPrice = :unitPrice, status = :status, description = :description WHERE itemNumber = :itemNumber';
+			$updateItemDetailsSql = 'UPDATE item SET itemName = :itemName, category = :category, stock = :stock, costing = :costing, unitPrice = :unitPrice, description = :description WHERE itemNumber = :itemNumber';
 			$updateItemDetailsStatement = $conn->prepare($updateItemDetailsSql);
-			$updateItemDetailsStatement->execute(['itemName' => $itemName, 'category' => $category, 'discount' => $discount, 'stock' => $newStock, 'costing' => $itemDetailsCosting, 'unitPrice' => $itemDetailsUnitPrice, 'status' => $status, 'description' => $description, 'itemNumber' => $itemNumber]);
+			$updateItemDetailsStatement->execute(['itemName' => $itemName, 'category' => $category, 'stock' => $newStock, 'costing' => $itemDetailsCosting, 'unitPrice' => $itemDetailsUnitPrice, 'description' => $description, 'itemNumber' => $itemNumber]);
 			
 			// UPDATE item name in sale table
 			$updateItemInSaleTableSql = 'UPDATE sale SET itemName = :itemName WHERE itemNumber = :itemNumber';

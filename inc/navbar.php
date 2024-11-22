@@ -20,7 +20,7 @@
         ?>
         <a class="nav-link" id="v-pills-sale-tab" data-toggle="pill" href="#v-pills-sale" role="tab" aria-controls="v-pills-sale" aria-selected="false"><i class='bx bx-receipt'></i> Order</a>
         <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false"><i class='bx bx-group' ></i> Customers</a>
-        <a class="nav-link" id="v-pills-search-tab" data-toggle="pill" href="#v-pills-search" role="tab" aria-controls="v-pills-search" aria-selected="false"><i class='bx bx-search-alt'></i> Search/Track</a>
+        <a class="nav-link" id="v-pills-search-tab" data-toggle="pill" href="#v-pills-search" role="tab" aria-controls="v-pills-search" aria-selected="false"><i class='bx bx-search-alt'></i> Records Hub</a>
         <a class="nav-link" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-reports" role="tab" aria-controls="v-pills-reports" aria-selected="false"><i class='bx bx-notepad'></i> Reports</a>
         <a class="nav-link active" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-reports" aria-selected="false"><i class='bx bx-user-circle' ></i> My Profile</a>
         <a class="nav-link nav-link-logout" href="model/login/logout.php"><i class='bx bx-log-out-circle'></i> <b>Logout</b></a>

@@ -10,12 +10,12 @@
                         <label for="vendorDetailsVendorFullName">Supplier Name<span class="requiredIcon">*</span></label>
                         <input type="text" class="form-control" id="vendorDetailsVendorFullName" name="vendorDetailsVendorFullName" placeholder="">
                     </div>
-                    <div class="form-group col-md-2">
+                    <!-- <div class="form-group col-md-2">
                         <label for="vendorDetailsStatus">Status</label>
                         <select id="vendorDetailsStatus" name="vendorDetailsStatus" class="form-control chosenSelect">
-                        <?php include('inc/statusList.html'); ?>
+                        <?php //include('inc/statusList.html'); ?>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="form-group col-md-3">
                         <label for="vendorDetailsVendorID">Supplier ID <small>Auto Generated</small></label>
                         <input type="text" class="form-control invTooltip" id="vendorDetailsVendorID" name="vendorDetailsVendorID" title="This will be auto-generated when you add a new vendor" autocomplete="off">
