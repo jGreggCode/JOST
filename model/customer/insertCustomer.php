@@ -16,32 +16,16 @@
 		$status = htmlentities($_POST['customerDetailsStatus']);
 		
 		if(isset($fullName) && isset($mobile) && isset($address)) {
-			// Validate mobile number
-			if(filter_var($mobile, FILTER_VALIDATE_INT) === 0 || filter_var($mobile, FILTER_VALIDATE_INT)) {
-				// Valid mobile number
-			} else {
-				// Mobile is wrong
-				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid phone number</div>';
-				exit();
-			}
 			
-			// Validate second phone number only if it's provided by user
-			if(!empty($phone2)){
-				if(filter_var($phone2, FILTER_VALIDATE_INT) === false) {
-					// Phone number 2 is not valid
-					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid mobile number 2</div>';
-					exit();
-				}
-			}
 			
 			// Validate email only if it's provided by user
-			if(!empty($email)) {
-				if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-					// Email is not valid
-					echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid email</div>';
-					exit();
-				}
-			}
+			// if(!empty($email)) {
+			// 	if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+			// 		// Email is not valid
+			// 		echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please enter a valid email</div>';
+			// 		exit();
+			// 	}
+			// }
 			
 			// Validate address
 			if($address == ''){

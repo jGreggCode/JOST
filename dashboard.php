@@ -181,12 +181,12 @@
                                             <label for="customerDetailsCustomerFullName">Full Name<span class="requiredIcon">*</span></label>
                                             <input type="text" class="form-control" id="customerDetailsCustomerFullName" name="customerDetailsCustomerFullName">
                                         </div>
-                                        <div class="form-group col-md-2">
+                                        <!-- <div class="form-group col-md-2">
                                             <label for="customerDetailsStatus">Status</label>
                                             <select id="customerDetailsStatus" name="customerDetailsStatus" class="form-control chosenSelect">
-                                            <?php include('inc/statusList.html'); ?>
+                                            <?php //include('inc/statusList.html'); ?>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="customerDetailsCustomerID">Customer ID <small>Auto Generated</small></label>
                                             <input type="text" class="form-control invTooltip" id="customerDetailsCustomerID" name="customerDetailsCustomerID" title="This will be auto-generated when you add a new customer" autocomplete="off" readonly>
@@ -195,12 +195,12 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
-                                            <label for="customerDetailsCustomerMobile">Phone (mobile)<span class="requiredIcon">*</span></label>
-                                            <input type="text" class="form-control invTooltip" id="customerDetailsCustomerMobile" name="customerDetailsCustomerMobile" title="Do not enter leading 0">
+                                            <label for="customerDetailsCustomerMobile">Primary Phone No.<span class="requiredIcon">*</span></label>
+                                            <input type="text" class="form-control invTooltip" id="customerDetailsCustomerMobile" name="customerDetailsCustomerMobile" title="Format: 09xxxxxxxxx">
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="customerDetailsCustomerPhone2">Phone 2</label>
-                                            <input type="text" class="form-control invTooltip" id="customerDetailsCustomerPhone2" name="customerDetailsCustomerPhone2" title="Do not enter leading 0">
+                                            <label for="customerDetailsCustomerPhone2">Secondary Phone No.</label>
+                                            <input type="text" class="form-control invTooltip" id="customerDetailsCustomerPhone2" name="customerDetailsCustomerPhone2" title="Format: 09xxxxxxxxx">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="customerDetailsCustomerEmail">Email</label>
@@ -208,11 +208,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="customerDetailsCustomerAddress">Address<span class="requiredIcon">*</span></label>
+                                        <label for="customerDetailsCustomerAddress">Permanent Address<span class="requiredIcon">*</span></label>
                                         <input type="text" class="form-control" id="customerDetailsCustomerAddress" name="customerDetailsCustomerAddress">
                                     </div>
                                     <div class="form-group">
-                                        <label for="customerDetailsCustomerAddress2">Address 2</label>
+                                        <label for="customerDetailsCustomerAddress2">Temporary Address</label>
                                         <input type="text" class="form-control" id="customerDetailsCustomerAddress2" name="customerDetailsCustomerAddress2">
                                     </div>
                                     <div class="form-row">
@@ -228,8 +228,8 @@
                                         </div>
                                     </div>
                                     <button type="button" id="addCustomer" name="addCustomer" class="btn btn-success">Add Customer</button>
-                                    <button type="button" id="updateCustomerDetailsButton" class="btn btn-primary">Update</button>
-                                    <button type="button" id="deleteCustomerButton" class="btn btn-danger">Delete</button>
+                                    <!-- <button type="button" id="updateCustomerDetailsButton" class="btn btn-primary">Update</button>
+                                    <button type="button" id="deleteCustomerButton" class="btn btn-danger">Delete</button> -->
                                     <button type="reset" class="btn">Clear</button>
                                 </form>
                             </div>

@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="purchaseDetailsPurchaseID">Purchase ID</label>
-                        <input type="text" class="form-control invTooltip" id="purchaseDetailsPurchaseID" name="purchaseDetailsPurchaseID" title="This will be auto-generated when you add a new record" autocomplete="off">
+                        <input readonly type="text" class="form-control invTooltip" id="purchaseDetailsPurchaseID" name="purchaseDetailsPurchaseID" title="This will be auto-generated when you add a new record" autocomplete="off">
                         <div id="purchaseDetailsPurchaseIDSuggestionsDiv" class="customListDivWidth"></div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
                         <input type="text" class="form-control" id="purchaseDetailsTotal" name="purchaseDetailsTotal" readonly>
                     </div>
                 </div>
-                <button type="button" id="addPurchase" class="btn btn-success">Add Purchase</button>
-                <button type="button" id="updatePurchaseDetailsButton" class="btn btn-primary">Update</button>
+                <button type="button" id="addPurchase" class="btn btn-success">Restock Item</button>
+                <!-- <button type="button" id="updatePurchaseDetailsButton" class="btn btn-primary">Update</button> -->
                 <button type="reset" class="btn">Clear</button>
             </form>
         </div>

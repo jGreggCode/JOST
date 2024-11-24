@@ -9,6 +9,7 @@
 	$output = '<table id="vendorDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
+						<th>Action</th>
 						<th>Supplier ID</th>
 						<th>Supplier Name</th>
 						<th>Email</th>
@@ -25,9 +26,10 @@
 	// Create table rows from the selected data
 	while($row = $vendorDetailsSearchStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
+						'<td>' . '<a href="model/vendor/update.php?id='. $row['vendorID'] . '" style="color: blue; font-weight: bold;">Edit</a>' . '</td>' .
 						'<td>' . $row['vendorID'] . '</td>' .
 						'<td>' . $row['fullName'] . '</td>' .
-						'<td>' . '<a href="model/vendor/update.php?id='. $row['vendorID'] . '" style="color: blue; font-weight: bold;">'. $row['email'] .'</a>' . '</td>' .
+						'<td>' . $row['email'] . '</td>' .
 						'<td>' . $row['mobile'] . '</td>' .
 						'<td>' . $row['phone2'] . '</td>' .
 						'<td>' . $row['address'] . '</td>' .

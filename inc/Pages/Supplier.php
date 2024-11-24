@@ -18,18 +18,18 @@
                     </div> -->
                     <div class="form-group col-md-3">
                         <label for="vendorDetailsVendorID">Supplier ID <small>Auto Generated</small></label>
-                        <input type="text" class="form-control invTooltip" id="vendorDetailsVendorID" name="vendorDetailsVendorID" title="This will be auto-generated when you add a new vendor" autocomplete="off">
+                        <input readonly type="text" class="form-control invTooltip" id="vendorDetailsVendorID" name="vendorDetailsVendorID" title="This will be auto-generated when you add a new vendor" autocomplete="off">
                         <div id="vendorDetailsVendorIDSuggestionsDiv" class="customListDivWidth"></div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <label for="vendorDetailsVendorMobile">Phone (mobile)<span class="requiredIcon">*</span></label>
-                        <input type="text" class="form-control invTooltip" id="vendorDetailsVendorMobile" name="vendorDetailsVendorMobile" title="Do not enter leading 0">
+                        <label for="vendorDetailsVendorMobile">Primary Phone No.<span class="requiredIcon">*</span></label>
+                        <input type="text" class="form-control invTooltip" id="vendorDetailsVendorMobile" name="vendorDetailsVendorMobile" title="Format: 09xxxxxxxxx">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="vendorDetailsVendorPhone2">Phone 2</label>
-                        <input type="text" class="form-control invTooltip" id="vendorDetailsVendorPhone2" name="vendorDetailsVendorPhone2" title="Do not enter leading 0">
+                        <label for="vendorDetailsVendorPhone2">Secondary Phone No.</label>
+                        <input type="text" class="form-control invTooltip" id="vendorDetailsVendorPhone2" name="vendorDetailsVendorPhone2" title="Format: 09xxxxxxxxx">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="vendorDetailsVendorEmail">Email</label>
@@ -37,11 +37,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="vendorDetailsVendorAddress">Address<span class="requiredIcon">*</span></label>
+                    <label for="vendorDetailsVendorAddress">Permanent Address<span class="requiredIcon">*</span></label>
                     <input type="text" class="form-control" id="vendorDetailsVendorAddress" name="vendorDetailsVendorAddress">
                 </div>
                 <div class="form-group">
-                    <label for="vendorDetailsVendorAddress2">Address 2</label>
+                    <label for="vendorDetailsVendorAddress2">Temporary Address</label>
                     <input type="text" class="form-control" id="vendorDetailsVendorAddress2" name="vendorDetailsVendorAddress2">
                 </div>
                 <div class="form-row">
@@ -56,9 +56,7 @@
                         </select>
                     </div>
                 </div>
-                <button type="button" id="addVendor" name="addVendor" class="btn btn-success">Add</button>
-                <button type="button" id="updateVendorDetailsButton" class="btn btn-primary">Update</button>
-                <button type="button" id="deleteVendorButton" class="btn btn-danger">Delete</button>
+                <button type="button" id="addVendor" name="addVendor" class="btn btn-success">Add Supplier</button>
                 <button type="reset" class="btn">Clear</button>
             </form>
         </div>

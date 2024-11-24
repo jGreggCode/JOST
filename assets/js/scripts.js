@@ -124,11 +124,50 @@ $(document).ready(function(){
 	
 	// Listen to customer add button
 	$('#addCustomer').on('click', function(){
+		const phonePattern = /^(?:\+63|0|63)9\d{9}$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		var customerDetailsEmail = $('#customerDetailsCustomerEmail').val();
+		var customerDetailsPhone = $('#customerDetailsCustomerMobile').val();
+		var customerDetailsPhone2 = $('#customerDetailsCustomerPhone2').val();
+        var messageLog = $('#customerDetailsMessage');
+
+		// Validation
+        if (!phonePattern.test(customerDetailsPhone) && !phonePattern.test(customerDetailsPhone2)) {
+            message = 'Invalid phone number. Please use +639xxxxxxxxx or 09xxxxxxxxx.';
+            messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            return;
+        } 
+
+        if (!emailPattern.test(customerDetailsEmail)) {
+            message = 'Invalid email address. Please enter a valid one.';
+            messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            return;
+        }
+
 		addCustomer();
 	});
 	
 	// Listen to vendor add button
 	$('#addVendor').on('click', function(){
+		const phonePattern = /^(?:\+63|0|63)9\d{9}$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		var customerDetailsEmail = $('#vendorDetailsVendorEmail').val();
+		var customerDetailsPhone = $('#vendorDetailsVendorMobile').val();
+		var customerDetailsPhone2 = $('#vendorDetailsVendorPhone2').val();
+        var messageLog = $('#vendorDetailsMessage');
+		// Validation
+        if (!phonePattern.test(customerDetailsPhone) && !phonePattern.test(customerDetailsPhone2)) {
+            message = 'Invalid phone number. Please use +639xxxxxxxxx or 09xxxxxxxxx.';
+            messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            return;
+        } 
+
+        if (!emailPattern.test(customerDetailsEmail)) {
+            message = 'Invalid email address. Please enter a valid one.';
+            messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            return;
+        }
+
 		addVendor();
 	});
 	

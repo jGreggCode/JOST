@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 mt-4">
+                    <div class="col-sm-10 mt-4">
                         <button id="itemUpdateBtn" class="btn btn-success">Update</button>
                         <button id="itemDeleteBtn" class="btn btn-danger">Delete</button>
                     </div>

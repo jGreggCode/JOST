@@ -8,16 +8,17 @@
     $fullName = '';
     $email = '';
     $mobile = '';
-    $mobile2 = '';
+    $phone = '';
+    $phone2 = '';
     $address = '';
     $adress2 = '';
     $city = '';
     $district = '';
 
-    $getItemDetailsQuery = 'SELECT * FROM vendor WHERE vendorID = :vendorID';
+    $getItemDetailsQuery = 'SELECT * FROM customer WHERE customerID = :customerID';
     $getItemDetailsStatment = $conn->prepare($getItemDetailsQuery);
     $getItemDetailsStatment->execute([
-        'vendorID' => $id
+        'customerID' => $id
     ]);
 
     $row = null;
@@ -94,59 +95,59 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title text-center">Edit Supplier Info</h5>
-                <h6 class="card-subtitle mb-2 text-muted text-center">Editing Supplier <small>(SID: <span id="vendorID"><?php echo $row['vendorID'];?></span>)</small></h6>
+                <h5 class="card-title text-center">Edit Customer Info</h5>
+                <h6 class="card-subtitle mb-2 text-muted text-center">Editing Customer <small>(CID: <span id="customerID"><?php echo $row['customerID'];?></span>)</small></h6>
                 <div id="message"></div>
                 <div class="row">
                     <div class="col-sm-6 mt-2">
                         <label class="form-label">Full Name</label>
-                        <input placeholder="Full Name" type="text" class="form-control" name="vendorDetailsFullName" id="vendorDetailsFullName" value="<?php echo $row['fullName'] ?? "" ; ?>">
+                        <input placeholder="Full Name" type="text" class="form-control" name="customerDetailsFullName" id="customerDetailsFullName" value="<?php echo $row['fullName'] ?? "" ; ?>">
                     </div>
                     <div class="col-sm-6 mt-2">
                         <label class="form-label">Email</label>
-                        <input placeholder="Email" type="text" class="form-control" name="vendorDetailsEmail" id="vendorDetailsEmail" value="<?php echo $row['email'] ?? "" ; ?>">
+                        <input placeholder="Email" type="text" class="form-control" name="customerDetailsEmail" id="customerDetailsEmail" value="<?php echo $row['email'] ?? "" ; ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3 mt-2">
                         <label class="form-label">Primary Phone No.</label>
-                        <input placeholder="Primary Phone No." type="text" class="form-control" name="vendorDetailsPhone" id="vendorDetailsPhone" value="<?php echo $row['mobile'] ?? "" ; ?>">
+                        <input placeholder="Primary Phone No." type="text" class="form-control" name="customerDetailsPhone" id="customerDetailsPhone" value="<?php echo $row['mobile'] ?? "" ; ?>">
                     </div>
                     <div class="col-sm-3 mt-2">
                         <label class="form-label">Secondary Phone No.</label>
-                        <input placeholder="Secondary Phone No." type="text" class="form-control" name="vendorDetailsPhone2" id="vendorDetailsPhone2" value="<?php echo $row['phone2'] ?? "" ; ?>">
+                        <input placeholder="Secondary Phone No." type="text" class="form-control" name="customerDetailsPhone2" id="customerDetailsPhone2" value="<?php echo $row['phone2'] ?? "" ; ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-8 mt-2">
                         <label class="form-label">Primary Address</label>
-                        <input placeholder="Primary Address" type="text" class="form-control" name="vendorDetailsAddress" id="vendorDetailsAddress" value="<?php echo $row['address'] ?? "" ; ?>">
+                        <input placeholder="Primary Address" type="text" class="form-control" name="customerDetailsAddress" id="customerDetailsAddress" value="<?php echo $row['address'] ?? "" ; ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-8 mt-2">
                         <label class="form-label">Secondary Address</label>
-                        <input placeholder="Secondary Address" type="text" class="form-control" name="vendorDetailsAddress2" id="vendorDetailsAddress2" value="<?php echo $row['address2'] ?? "" ; ?>">
+                        <input placeholder="Secondary Address" type="text" class="form-control" name="customerDetailsAddress2" id="customerDetailsAddress2" value="<?php echo $row['address2'] ?? "" ; ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3 mt-2">
                         <label class="form-label">City</label>
-                        <input placeholder="City" type="text" class="form-control" name="vendorDetailsCity" id="vendorDetailsCity" value="<?php echo $row['city'] ?? "" ; ?>">
+                        <input placeholder="City" type="text" class="form-control" name="customerDetailsCity" id="customerDetailsCity" value="<?php echo $row['city'] ?? "" ; ?>">
                     </div>
                     <div class="col-sm-3 mt-2">
                         <label class="form-label">District</label>
-                        <input placeholder="District" type="text" class="form-control" name="vendorDetailsDistrict" id="vendorDetailsDistrict" value="<?php echo $row['district'] ?? "" ; ?>">
+                        <input placeholder="District" type="text" class="form-control" name="customerDetailsDistrict" id="customerDetailsDistrict" value="<?php echo $row['district'] ?? "" ; ?>">
                     </div>
                     <div class="col-sm mt-2">
-                        <label class="form-label">Created On <small>(Date this supplier is added)</small></label>
-                        <input placeholder="Created On" readonly type="text" class="form-control" name="vendorDetailsCreatedOn" id="vendorDetailsCreatedOn" value="<?php echo $row['createdOn'] ?? "" ; ?>">
+                        <label class="form-label">Created On <small>(Date this customer is added)</small></label>
+                        <input placeholder="Created On" readonly type="text" class="form-control" name="customerDetailsCreatedOn" id="customerDetailsCreatedOn" value="<?php echo $row['createdOn'] ?? "" ; ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-10 mt-4">
-                        <button id="vendorUpdateBtn" class="btn btn-success">Update</button>
-                        <button id="vendorDeleteBtn" class="btn btn-danger">Delete</button>
+                        <button id="customerUpdateBtn" class="btn btn-success">Update</button>
+                        <button id="customerDeleteBtn" class="btn btn-danger">Delete</button>
                     </div>
                 </div>
         </div>

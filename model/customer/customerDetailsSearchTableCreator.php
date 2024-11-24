@@ -9,6 +9,7 @@
 	$output = '<table id="customerDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
 				<thead>
 					<tr>
+						<th>Action</th>
 						<th>Customer ID</th>
 						<th>Full Name</th>
 						<th>Email</th>
@@ -25,6 +26,7 @@
 	// Create table rows from the selected data
 	while($row = $customerDetailsSearchStatement->fetch(PDO::FETCH_ASSOC)){
 		$output .= '<tr>' .
+						'<td>' . '<a href="model/customer/update.php?id='. $row['customerID'] . '" style="color: blue; font-weight: bold;">Edit</a>' . '</td>' .
 						'<td>' . $row['customerID'] . '</td>' .
 						'<td>' . $row['fullName'] . '</td>' .
 						'<td>' . $row['email'] . '</td>' .

@@ -39,6 +39,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="sales">
+                        <span class="material-icons-sharp">analytics</span>
+                        <div class="middle">
+                            <div class="lef">
+                                <h5>JOST Total Customer</h5>
+                                <h5 class="text-muted"><?php echo $_SESSION['companysales']; ?></h5>
+                            </div>
+                        </div>
+                    </div>
                     <?php 
                         if ($_SESSION['usertype'] === 'Admin') {
                             ?>
