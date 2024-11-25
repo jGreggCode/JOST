@@ -7,6 +7,7 @@
         <div class="card-header">PROFILE
             <button onclick="location.href='model/users/update.php?id=<?php echo $_SESSION['userid']; ?>&ACTION=EDIT'" type="button" data-mdb-button-init data-mdb-ripple-init class="btn float-right btn-sm btn-edit-profile">
             <i class='bx bx-edit'></i> Edit Profile</button>
+            <button id="reloadDataBtn" class="btn float-right btn-sm btn-edit-profile btn-warning" style="margin-right: .5rem;">Reload</button>
         </div>
             <div class="card-body">
                 <!-- START HERE -->
@@ -40,11 +41,11 @@
                         </div>
                     </div>
                     <div class="sales">
-                        <span class="material-icons-sharp">analytics</span>
+                        <span class="material-icons-sharp">stacked_line_chart</span>
                         <div class="middle">
                             <div class="lef">
                                 <h5>JOST Total Customer</h5>
-                                <h5 class="text-muted"><?php echo $_SESSION['companysales']; ?></h5>
+                                <h5 class="text-muted"><?php echo $_SESSION['customers']; ?></h5>
                             </div>
                         </div>
                     </div>

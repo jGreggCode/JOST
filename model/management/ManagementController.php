@@ -2,6 +2,9 @@
 	require_once 'Management.php';
 	require_once '../audit/insertAudit.php';
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['refreshData']) && $_POST['refreshData'] === true)) {
+        var_dump($_POST['refreshData']);
+    }
 
     // Handle AJAX request
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUsingItemID'])) {
@@ -136,7 +139,7 @@
             $vendorDistrict
         );
 
-		insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Deleted Supplier ' . $vendorID);
+		insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Updated Supplier ' . $vendorID);
 
         // Return JSON response
         echo json_encode($response);

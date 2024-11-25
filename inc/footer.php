@@ -27,4 +27,5 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="assets/js/scripts.js"></script>
 <script src="assets/js/login.js"></script>
+<script src="assets/js/management.js" ></script>    
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

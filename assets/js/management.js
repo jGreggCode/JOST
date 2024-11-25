@@ -1,5 +1,25 @@
 $(document).ready(function() {
 
+    $('#reloadDataBtn').on('click', function() {
+        var refresh = true;
+        $.ajax({
+            url: '../../model/management/ManagementController.php',
+            method: 'POST',
+            data: {
+                refreshData: refresh
+            },
+            success: function(data) {
+                console.log('AJAX Response: ', data);
+            },
+            complete: function() {
+                refresh = false;
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('AJAX Error: ', textStatus, errorThrown);
+            }
+        });
+    });
+
     $('#itemDeleteBtn').on('click', function() {
         var itemID = $('#productID').text();
         if (itemID == 'No Item') {

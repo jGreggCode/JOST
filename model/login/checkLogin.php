@@ -58,6 +58,7 @@
 				$_SESSION['mobile'] = $row['mobile'];
 				$_SESSION['location'] = $row['location'];
 
+
 				$getSalesSql = 'SELECT SUM(sales) AS total_sales FROM user';
 				$getSalesStatement = $conn->prepare($getSalesSql); // Fixed the variable name
 				$getSalesStatement->execute();
@@ -75,19 +76,15 @@
 				// Store the total_expense value in session
 				$_SESSION['companyexpense'] = $resultExpense['expense'] ?? 0;
 				
-				/*
-				if ($_SESSION['usertype'] === 'Admin') {
-					header('Location: ../../dashboard.php');
-					exit();
-				} elseif ($_SESSION['usertype'] === 'Reseller') {
-					header('Location: ../../reseller.php');
-					exit();
-				} elseif ($_SESSION['usertype'] === 'Employee') {
-					header('Location: ../../employee.php');
-					exit(); // Fallback for other user types
+				$checkCustomerSql = 'SELECT COUNT(*) as total FROM customer';
+				$checkCustomerStatement = $conn->prepare($checkCustomerSql);
+				$checkCustomerStatement->execute();
+
+				if ($checkCustomerStatement->rowCount() > 0) {
+					$row = $checkCustomerStatement->fetch(PDO::FETCH_ASSOC); 
+					$_SESSION['customers'] = $row['total'];
 				}
-				*/
-				//header('Location: ../../dashboard.php');
+
 				echo '<div class="alert alert-danger" >Login Success</div>';
 				exit();
 			} else {
