@@ -10,6 +10,60 @@
         public function __construct($db) {
             $this->db = $db;
         }
+
+        // Method to refresh profile data
+        public function refreshData($profileSales, $profileSold, $profileCompanySales, $profileCompanyCustomers, $profileCompanyExpense) {
+            try {
+                $getUserSql = 'SELECT * FROM user WHERE userID = :userID';
+                $getUserStmt = $this->db->prepare($getUserSql);
+                $getUserStmt->execute(['userID' => $_SESSION['userid']]);
+
+                $getSalesSql = 'SELECT SUM(sales) AS total_sales FROM user';
+				$getSalesStatement = $this->db->prepare($getSalesSql); // Fixed the variable name
+				$getSalesStatement->execute();
+
+				$getExpenseSql = 'SELECT SUM(unitPrice * quantity) AS expense FROM purchase';
+				$getExpenseStatement = $this->db->prepare($getExpenseSql); // Fixed the variable name
+				$getExpenseStatement->execute();
+
+                $getExpenseSql = 'SELECT SUM(unitPrice * quantity) AS expense FROM purchase';
+				$getExpenseStatement = $this->db->prepare($getExpenseSql); // Fixed the variable name
+				$getExpenseStatement->execute();
+
+                $checkCustomerSql = 'SELECT COUNT(*) as customers FROM customer';
+				$checkCustomerStatement = $this->db->prepare($checkCustomerSql);
+				$checkCustomerStatement->execute();
+
+                $statements = [$getExpenseStatement, $getSalesStatement, $getUserStmt];
+
+                foreach ($statements as $statement) {
+                   if ($statement->rowCount() < 0) {
+                        $message = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>No Data Found</div>';
+                        return ['status' => 'success', 'message' => $message];
+                   }
+                }
+
+                $userRow = $getUserStmt->fetch(PDO::FETCH_ASSOC);
+                $salesRow = $getSalesStatement->fetch(PDO::FETCH_ASSOC);
+                $expenseRow = $getExpenseStatement->fetch(PDO::FETCH_ASSOC);
+                $customerRow = $checkCustomerStatement->fetch(PDO::FETCH_ASSOC);
+    
+                $message = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item deleted successfully</div>';
+                return [
+                    'status' => 'success', 
+                    'sales' => $userRow['sales'],
+                    'sold' => $userRow['sold'],
+                    'companySales' => $salesRow['total_sales'],
+                    'companyCustomers' => $customerRow['customers'],
+                    'companyExpense' => $expenseRow['expense'],
+                    'message' => $message
+                ];
+                
+            } catch (PDOException $e) {
+                $message = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Database error: ' . $e->getMessage() . '</div>';
+                return ['status' => 'error', 'message' => $message];
+            }
+        }
     
         // Method to delete an account
         public function itemDelete($itemID) {

@@ -1,23 +1,7 @@
 $(document).ready(function() {
 
     $('#reloadDataBtn').on('click', function() {
-        var refresh = true;
-        $.ajax({
-            url: '../../model/management/ManagementController.php',
-            method: 'POST',
-            data: {
-                refreshData: refresh
-            },
-            success: function(data) {
-                console.log('AJAX Response: ', data);
-            },
-            complete: function() {
-                refresh = false;
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('AJAX Error: ', textStatus, errorThrown);
-            }
-        });
+        reloadData();
     });
 
     $('#itemDeleteBtn').on('click', function() {
@@ -148,6 +132,43 @@ $(document).ready(function() {
 		});
     });
 });
+
+function reloadData() {
+    var profileSales = $('#profileSales').text();
+    var profileSold = $('#profileSold').text();
+    var profileCompanySales = $('#profileCompanySales').text();
+    var profileCompanyCustomers = $('#profileCompanyCustomers').text();
+    var profileCompanyExpense = $('#profileCompanyExpense').text();
+
+    $('#loadingMessage').fadeIn();
+
+    $.ajax({
+        url: 'model/management/ManagementController.php',
+        method: 'POST',
+        data: {
+            profileSales: profileSales,
+            profileSold: profileSold,
+            profileCompanySales: profileCompanySales,
+            profileCompanyCustomers: profileCompanyCustomers,
+            profileCompanyExpense: profileCompanyExpense
+        },
+        success: function(response) {
+            console.log('AJAX Response: ', response);
+            var data = JSON.parse(response);
+            $('#profileSales').text(data.sales);
+            $('#profileSold').text(data.sold);
+            $('#profileCompanySales').text(data.companySales);
+            $('#profileCompanyCustomers').text(data.companyCustomers);
+            $('#profileCompanyExpense').text(data.companyExpense);
+        },
+        complete: function() {
+            $('#loadingMessage').fadeOut();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('AJAX Error: ', textStatus, errorThrown);
+        }
+    });
+}
 
 function vendorUpdate() {
     var updateUsingVendorID = $('#vendorID').text();

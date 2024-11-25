@@ -18,7 +18,7 @@
                         <div class="middle">
                             <div class="lef">
                                 <h5>Your Total Sales</h5>
-                                <h5 class="text-muted">PHP <?php echo $_SESSION['sales']; ?></h5>
+                                <h5 id="profileSales" class="text-muted">PHP <?php echo $_SESSION['sales']; ?></h5>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="middle">
                             <div class="lef">
                                 <h5>Your Total Sold</h5>
-                                <h5 class="text-muted"><?php echo $_SESSION['sold'] ?? 0; ?> product/s</h5>
+                                <h5 id="profileSold" class="text-muted"><?php echo $_SESSION['sold'] ?? 0; ?> product/s</h5>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="middle">
                             <div class="lef">
                                 <h5>JOST Total Sales</h5>
-                                <h5 class="text-muted">PHP <?php echo $_SESSION['companysales']; ?></h5>
+                                <h5 id="profileCompanySales" class="text-muted">PHP <?php echo $_SESSION['companysales']; ?></h5>
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         <div class="middle">
                             <div class="lef">
                                 <h5>JOST Total Customer</h5>
-                                <h5 class="text-muted"><?php echo $_SESSION['customers']; ?></h5>
+                                <h5 id="profileCompanyCustomers" class="text-muted"><?php echo $_SESSION['customers']; ?></h5>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <div class="middle">
                                     <div class="lef">
                                         <h5>JOST Total Expense</h5>
-                                        <h5 class="text-muted">PHP <?php echo $_SESSION['companyexpense'] ?? 0; ?></h5>
+                                        <h5 id="profileCompanyExpense" class="text-muted">PHP <?php echo $_SESSION['companyexpense'] ?? 0; ?></h5>
                                     </div>
                                 </div>
                             </div> <?php

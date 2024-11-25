@@ -11,6 +11,10 @@
     require_once('inc/header.html');
 ?>
 <body>
+    <div id="loadingMessage" class="loading-message" style="display: none;">
+      <div class="spinner"></div>
+      <p>Please wait, processing...</p>
+    </div>
     <?php
         require 'inc/navigation.php';
     ?>

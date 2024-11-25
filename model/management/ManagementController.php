@@ -2,11 +2,25 @@
 	require_once 'Management.php';
 	require_once '../audit/insertAudit.php';
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['refreshData']) && $_POST['refreshData'] === true)) {
-        var_dump($_POST['refreshData']);
+    // Handle AJAX request
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profileSold'])) {
+        $profileSold = $_POST['profileSold'];
+        $profileSales = $_POST['profileSold'];
+        $profileCompanySales = $_POST['profileCompanySales'];
+        $profileCompanyCustomers = $_POST['profileCompanyCustomers'];
+        $profileCompanyExpense = $_POST['profileCompanyExpense'];
+        // Initialize your database connection
+        $db = $conn; 
+
+        $management = new Management($db);
+        $response = $management->refreshData($profileSold, $profileSales, $profileCompanySales, $profileCompanyCustomers, $profileCompanyExpense);
+
+        // Return JSON response
+        echo json_encode($response);
+        exit();
     }
 
-    // Handle AJAX request
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUsingItemID'])) {
         $productID = intval($_POST['deleteUsingItemID']);
 
