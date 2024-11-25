@@ -245,7 +245,7 @@
             <a href="../../dashboard.php" class="btn btn-theme"><i class="fa-solid fa-chevron-left"></i> Go Back</a>
         </div>
         <div class="text-center mb-4">
-            <h3>Edit User Details</h3>
+            <h3>Edit Account Details</h3>
             <p class="text-muted">Update Info for <?php echo ucwords($row['fullName'] ?? "") . "<small>" . " (ID: " . "<span id='userID'>" . $userID . "</span>" . ")" . "</small>"; ?></p>
         </div>
 

@@ -13,7 +13,14 @@
         $db = $conn; 
 
         $accountManager = new AccountManager($db);
-        $response = $accountManager->deleteAccount($accountID);
+		$response = null;
+
+		if ($_SESSION['userid'] == $accountID) {
+			$message = 'You cannot delete your own account!';
+			$response = ['status' => 'warning', 'message' => $message];
+		} else {
+			$response = $accountManager->deleteAccount($accountID);
+		}
 
 		insertAudit('Account: ' . '(' . $_SESSION['userid'] . ')' . ' Deleted ' . $accountID);
 

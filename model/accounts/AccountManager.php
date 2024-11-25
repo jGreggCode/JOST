@@ -18,11 +18,6 @@
                 $stmt->bindParam(':id', $accountID, PDO::PARAM_INT);
                 $stmt->execute();
 
-                if ($_SESSION['userid'] == $accountID) {
-                    $message = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>You cannot delete your own account!</div>';
-                    return ['status' => 'warning', 'message' => $message];
-                }
-    
                 if ($stmt->rowCount() > 0) {
                     $message = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Account deleted successfully</div>';
                     return ['status' => 'success', 'message' => $message];
