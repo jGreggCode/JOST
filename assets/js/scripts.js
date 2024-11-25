@@ -1641,7 +1641,8 @@ function getVendorDetailsToPopulate(){
 function getPurchaseDetailsToPopulate(){
 	// Get the purchaseID entered in the text box
 	var purchaseDetailsPurchaseID = $('#purchaseDetailsPurchaseID').val();
-	
+
+	console.log(data.costing);
 	// Call the populatePurchaseDetails.php script to get item details
 	// relevant to the itemNumber which the user entered
 	$.ajax({

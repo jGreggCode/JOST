@@ -12,11 +12,11 @@ session_start();
 		
 		$itemNumber = htmlentities($_POST['itemDetailsItemNumber']);
 		$itemName = htmlentities($_POST['itemDetailsItemName']);
-		$discount = htmlentities($_POST['itemDetailsDiscount']);
+		$discount = htmlentities($_POST['itemDetailsDiscount'] ?? '0');
 		$quantity = htmlentities($_POST['itemDetailsQuantity']);
 		$category = htmlentities($_POST['itemDetailsProductCategory']);
 		$unitPrice = htmlentities($_POST['itemDetailsUnitPrice']);
-		$status = htmlentities($_POST['itemDetailsStatus']);
+		$status = htmlentities($_POST['itemDetailsStatus'] ?? 'Active');
 		$description = htmlentities($_POST['itemDetailsDescription']);
 		
 		

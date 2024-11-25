@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="purchaseDetailsUnitPrice">Costing<span class="requiredIcon">*</span></label>
-                        <input type="text" class="form-control" id="purchaseDetailsUnitPrice" name="purchaseDetailsUnitPrice" value="0">
+                        <input type="number" class="form-control" id="purchaseDetailsUnitPrice" name="purchaseDetailsUnitPrice" value="0">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="purchaseDetailsTotal">Total Cost</label>
