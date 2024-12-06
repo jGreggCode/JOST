@@ -58,8 +58,10 @@ $(document).ready(function() {
         var customerDetailsPhone2 = $('#customerDetailsPhone2').val();
         var messageLog = $('#message');
 
+        console.log("Hello " + phonePattern.test(customerDetailsPhone));
+
         // Validation
-        if (!phonePattern.test(customerDetailsPhone) && !phonePattern.test(customerDetailsPhone2)) {
+        if (!phonePattern.test(customerDetailsPhone) ||  !phonePattern.test(customerDetailsPhone2)) {
             message = 'Invalid phone number. Please use +639xxxxxxxxx or 09xxxxxxxxx.';
             messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
             return;
@@ -108,7 +110,7 @@ $(document).ready(function() {
         var messageLog = $('#message');
 
         // Validation
-        if (!phonePattern.test(vendorDetailsPhone) && !phonePattern.test(vendorDetailsPhone2)) {
+        if (!phonePattern.test(vendorDetailsPhone) || !phonePattern.test(vendorDetailsPhone2)) {
             message = 'Invalid phone number. Please use +639xxxxxxxxx or 09xxxxxxxxx.';
             messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
             return;

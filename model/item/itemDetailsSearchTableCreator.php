@@ -23,14 +23,14 @@
 	
 	// Create table rows from the selected data
 	while($row = $itemDetailsSearchStatement->fetch(PDO::FETCH_ASSOC)){
-		
+		$isInStock = $row['stock'] > 0 ? $row['stock'] : 'Out of Stock';
 		$output .= '<tr>' .
 						'<td>' . '<a href="model/item/update.php?id='. $row['productID'] . '" style="color: blue; font-weight: bold;">Edit</a>' . '</td>' .
 						'<td>' . $row['productID'] . '</td>' .
 						'<td>' . $row['category'] . '</td>' .
 						'<td>' . $row['itemNumber'] . '</td>' .
 						'<td><a href="#" class="itemDetailsHover" data-toggle="popover" id="' . $row['productID'] . '">' . $row['itemName'] . '</a></td>' .
-						'<td>' . $row['stock'] . '</td>' .
+						'<td style="color: ' . ($row['stock'] > 0 ? 'green' : 'red') . ';">' . $isInStock . '</td>' .
 						'<td>' . $row['unitPrice'] . '</td>' .
 						'<td>' . $row['description'] . '</td>' .
 					'</tr>';

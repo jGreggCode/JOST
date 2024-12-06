@@ -19,7 +19,7 @@
 						<tr>
 							<th>Purchase ID</th>
 							<th>Item Number</th>
-							<th>Restock Date</th>
+							<th>Date Delivered</th>
 							<th>Item Name</th>
 							<th>Supplier Name</th>
 							<th>Supplier ID</th>

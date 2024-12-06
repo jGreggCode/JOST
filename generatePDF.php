@@ -21,6 +21,7 @@ $saleDetailsSearchSql = 'SELECT sale.saleID,
     order_items.quantity,
     order_items.unitPrice,
     user.userID,
+    user.usertype,
     user.fullName AS sellerFullName,
     item.itemNumber,
     item.description
@@ -42,6 +43,16 @@ if ($saleDetailsSearchStatement->rowCount() > 0) {
     $paymentMode = $rows[0]['payment'];
     $sellerName = $rows[0]['sellerFullName']; 
     $sellerID = $rows[0]['userID'];   
+    $usertype = $rows[0]['usertype'];
+    $tpye = null;
+
+    if ($usertype == 'Admin') {
+        $type = 'Admin';
+    } else if ($usertype == 'Employee') {
+        $type = 'Employee';
+    } else {
+        $type = 'Seller';
+    }
 
     // Initialize TCPDF
     $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -139,21 +150,21 @@ if ($saleDetailsSearchStatement->rowCount() > 0) {
         <table class="invoice-details">
             <tr>
                 <td class="label">Customer Name:</td>
-                <td>'.$customerName.'</td>
-                <td class="label" style="text-align:right;">Invoice Date:</td>
+                <td style="text-align:right;">'.$customerName.'</td>
+                <td class="label">Invoice Date:</td>
                 <td style="text-align:right;">'.date("d-m-Y").'</td>
             </tr>
             <tr>
                 <td class="label">Mobile No:</td>
-                <td>'.$customerMobile.'</td>
-                <td class="label" style="text-align:right;">Invoice No:</td>
+                <td style="text-align:right;">'.$customerMobile.'</td>
+                <td class="label">Invoice No:</td>
                 <td style="text-align:right;">'.$_GET['invID'].'</td>
             </tr>
             <tr>
-                <td>Seller Name:</td>
-                <td>' . $sellerName . '</td>
-                <td>Seller ID:</td>
-                <td>' . $sellerID . '</td>
+                <td class="label">Seller:</td>
+                <td style="text-align:right;">' . '<span style="text-transform: uppercase; font-weight: bold;">' . $type . '</span> ' . $sellerName . '</td>
+                <td class="label">Seller ID:</td>
+                <td style="text-align:right;">' . $sellerID . '</td>
             </tr>
         </table>
 

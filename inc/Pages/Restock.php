@@ -11,8 +11,8 @@
                         <div id="purchaseDetailsItemNumberSuggestionsDiv" class="customListDivWidth"></div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="purchaseDetailsPurchaseDate">Purchase Date<span class="requiredIcon">*</span></label>
-                        <input type="text" class="form-control datepicker" id="purchaseDetailsPurchaseDate" name="purchaseDetailsPurchaseDate" readonly value="2024-11-06">
+                        <label for="purchaseDetailsPurchaseDate">Date Delivered<span class="requiredIcon">*</span></label>
+                        <input type="date" class="form-control" id="purchaseDetailsPurchaseDate" name="purchaseDetailsPurchaseDate" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="purchaseDetailsPurchaseID">Purchase ID</label>

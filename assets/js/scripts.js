@@ -199,7 +199,7 @@ $(document).ready(function(){
 			saleItems.push({
 				itemNumber: itemNumber,
 				quantity: quantity,
-				unitPrice: parseFloat(unitPrice)
+				unitPrice: parseFloat(unitPrice) / quantity
 			});
 		});
 

@@ -15,7 +15,7 @@
 					<tr>
 						<th>Restock ID</th>
 						<th>Item Number</th>
-						<th>Restock Date</th>
+						<th>Date Delivered</th>
 						<th>Item Name</th>
 						<th>Unit Price</th>
 						<th>Quantity</th>

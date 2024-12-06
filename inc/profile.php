@@ -1,5 +1,43 @@
 <?php
     require_once('checkApprovals.php');
+    require_once('./inc/config/constants.php');
+    require_once('./inc/config/db.php');
+
+    $topSeller = null;
+    $totalProduct = null;
+    $totalSales = null;
+    // Query to find the top seller with the most products sold and their total sales
+    $topSellerSql = "
+    SELECT 
+        u.fullName AS sellerName,
+        u.userID AS sellerID,
+        SUM(oi.quantity) AS totalProductsSold,
+        SUM(oi.quantity * oi.unitPrice) AS totalSalesValue
+    FROM 
+        User u
+    INNER JOIN 
+        sale s ON u.userID = s.sellerID
+    INNER JOIN 
+        order_items oi ON s.saleID = oi.saleID
+    GROUP BY 
+        u.userID
+    ORDER BY 
+        totalProductsSold DESC
+    LIMIT 1";
+
+    $topSellerStatement = $conn->prepare($topSellerSql);
+    $topSellerStatement->execute();
+
+    // Fetch the result
+    $topSeller = $topSellerStatement->fetch(PDO::FETCH_ASSOC);
+
+    if ($topSeller) {
+        $totalSales = number_format($topSeller['totalSalesValue'], 2);
+        $totalProduct = $topSeller['totalProductsSold'];
+        $topSellerName = $topSeller['sellerName'];
+    } else {
+        $topSellerName = "No sales data found.";
+    }
 ?>
 <!-- Profile -->
 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-reports-tab">
@@ -58,6 +96,18 @@
                                     <div class="lef">
                                         <h5>JOST Total Expense</h5>
                                         <h5 id="profileCompanyExpense" class="text-muted">PHP <?php echo $_SESSION['companyexpense'] ?? 0; ?></h5>
+                                    </div>
+                                </div>
+                            </div> <?php
+                        }
+                        if ($_SESSION['usertype'] === 'Admin') {
+                            ?>
+                            <div class="income">
+                                <span class="material-icons-sharp">workspace_premium</span>
+                                <div class="middle">
+                                    <div class="lef">
+                                        <h5>Top Seller</h5>
+                                        <h5 id="profileCompanyExpense" class="text-muted"><p><?php echo $topSellerName; ?></p><small style="margin-top: -.8rem; color: green"> with <?php echo $totalProduct; ?> product/s sold and PHP <?php echo $totalSales; ?> total sales</small></h5>
                                     </div>
                                 </div>
                             </div> <?php

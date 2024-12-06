@@ -8,6 +8,25 @@ $(document).ready(function() {
             exit();
         }
 
+        const phonePattern = /^(?:\+63|0|63)9\d{9}$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var customerDetailsEmail = $('#userDetailsUserEmail').val();
+        var customerDetailsPhone = $('#userDetailsUserMobile').val();
+        var messageLog = $('#message');
+
+        // Validation
+        if (!phonePattern.test(customerDetailsPhone)) {
+            message = 'Invalid phone number. Please use +639xxxxxxxxx or 09xxxxxxxxx.';
+            messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            return;
+        } 
+
+        if (!emailPattern.test(customerDetailsEmail)) {
+            message = 'Invalid email address. Please enter a valid one.';
+            messageLog.html('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>').fadeIn();
+            return;
+        }
+
         bootbox.confirm('Are you sure you want to update ' + '(UID: ' + accountID + ')', function(result){
 			if(result){
 				submitUpdate();

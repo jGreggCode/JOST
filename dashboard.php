@@ -282,10 +282,25 @@
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
+                                <?php 
+                                
+                                // Query to count all items with zero stock
+                                $itemDetailsSearchSql = 'SELECT COUNT(*) AS zeroStockCount FROM item WHERE stock = 0';
+                                $itemDetailsSearchStatement = $conn->prepare($itemDetailsSearchSql);
+                                $itemDetailsSearchStatement->execute();
+
+                                // Fetch the result
+                                $result = $itemDetailsSearchStatement->fetch(PDO::FETCH_ASSOC);
+
+                                // Get the count of items with zero stock
+                                $zeroStockCount = $result['zeroStockCount'];
+
+                                ?>
                                 <div class="tab-content">
                                     <div id="itemSearchTab" class="container-fluid tab-pane active">
                                         <br>
                                         <p>Use the grid below to search all details of items</p>
+                                        <p style="color: red; font-weight: bold;">Warning: <?php echo $zeroStockCount; ?> <?php echo $zeroStockCount > 1 ? 'items' : 'item' ?> are out of stock</p>
                                         <!-- <a href="#" class="itemDetailsHover" data-toggle="popover" id="10">wwwee</a> -->
                                         <div class="table-responsive" id="itemDetailsTableDiv"></div>
                                     </div>
@@ -300,16 +315,24 @@
                                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                                         <script type="text/javascript">
                                             <?php 
-                                                $saleDetailsSearchSql = 'SELECT itemNumber, quantity FROM order_items';
-                                                $saleDetailsSearchStatement = $conn->prepare($saleDetailsSearchSql);
-                                                $saleDetailsSearchStatement->execute();
-                                                $salesData = [];
-                                                while($row = $saleDetailsSearchStatement->fetch(PDO::FETCH_ASSOC)) {
-                                                    $salesData[] = [$row['itemNumber'], (int)$row['quantity']];
-                                                }
-                                                
-                                                // Convert PHP array to JSON
-                                                $jsonData = json_encode($salesData);
+                                                    $saleDetailsSearchSql = '
+                                                     SELECT oi.itemNumber, SUM(oi.quantity) AS totalQuantity
+                                                    FROM order_items oi
+                                                    INNER JOIN sale s ON oi.saleID = s.saleID
+                                                    WHERE MONTH(s.saleDate) = MONTH(CURRENT_DATE())
+                                                    AND YEAR(s.saleDate) = YEAR(CURRENT_DATE())
+                                                    GROUP BY oi.itemNumber
+                                                    ORDER BY totalQuantity DESC
+                                                    ';
+                                                    $saleDetailsSearchStatement = $conn->prepare($saleDetailsSearchSql);
+                                                    $saleDetailsSearchStatement->execute();
+                                                    $salesData = [];
+                                                    while($row = $saleDetailsSearchStatement->fetch(PDO::FETCH_ASSOC)) {
+                                                        $salesData[] = [$row['itemNumber'], (int)$row['totalQuantity']];
+                                                    }
+                                                    
+                                                    // Convert PHP array to JSON
+                                                    $jsonData = json_encode($salesData);
                                                 
                                                 ?>
                                                 google.charts.load('current', {'packages':['corechart']});
@@ -325,7 +348,7 @@
                                                 ]);
                                             
                                                 var options = {
-                                                    title: 'Most Purchased Products',
+                                                    title: 'Most Purchased Products Of The Month',
                                                     is3D: true,
                                                     legend: {
                                                                                 position: 'right', 
