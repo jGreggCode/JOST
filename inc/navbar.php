@@ -1,5 +1,6 @@
 <?php 
     $usertype = $_SESSION['usertype'];
+    
 ?>
 <div class="col-lg-2">
     <h1 class="my-4"></h1>

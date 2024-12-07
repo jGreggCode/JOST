@@ -161,8 +161,8 @@ if ($saleDetailsSearchStatement->rowCount() > 0) {
                 <td style="text-align:right;">'.$_GET['invID'].'</td>
             </tr>
             <tr>
-                <td class="label">Seller:</td>
-                <td style="text-align:right;">' . '<span style="text-transform: uppercase; font-weight: bold;">' . $type . '</span> ' . $sellerName . '</td>
+                <td class="label">' . '<span style="text-transform: uppercase; font-weight: bold;">' . $type . '\'s Name</span> ' . '</td>
+                <td style="text-align:right;">' . $sellerName . '</td>
                 <td class="label">Seller ID:</td>
                 <td style="text-align:right;">' . $sellerID . '</td>
             </tr>
